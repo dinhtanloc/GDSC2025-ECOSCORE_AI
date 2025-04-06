@@ -3,7 +3,7 @@ import { Container, Row, Col } from "reactstrap";
 
 const OurFeature = ()=>{
     return(
-        <section className="about__page-section" style={{backgroundColor:'#fff'}}>
+        <section className="about__page-section" style={{backgroundColor:'#f7fbf1'}}>
         <Container>
           <Row>
             <Col lg="6" md="6" sm="12">
@@ -16,18 +16,18 @@ const OurFeature = ()=>{
             <Col lg="6" md="6" sm="12">
               <div className="about__page-content">
                 <h2 className="section__title">
-                Moketo Gr: Vietnam's first stock investment platform with a chatbot for better user experience.
+                Ecoscore AI: Vietnam's first ESG Rating Platform with a chatbot for better user experience.
                 </h2>
 
                 <p className="section__description">
-                Most investors in Vietnam lack the foundational knowledge needed to enter the stock market. As a result, they often rely on trusted sources and seek superficial information on platforms like Chat GPT. Moketo Gr. is designed to be a reliable advisor with extensive training in financial and stock market knowledge. It not only answers financial queries effectively but also pulls data directly from the Vnstock exchange, offering up-to-date and accurate information. Additionally, Moketo Gr. provides a practical environment for data scientists to test their models with the latest stock data, enhancing their research and experience.
+                Most investors in Vietnam lack the foundational knowledge needed to enter the stock market. As a result, they often rely on trusted sources and seek superficial information on platforms like Chat GPT. Ecoscore AI is designed to be a reliable advisor with extensive training in financial and stock market knowledge. It not only answers financial queries effectively but also pulls data directly from the Vnstock exchange, offering up-to-date and accurate information. Additionally, Ecoscore AI provides a practical environment for data scientists to test their models with the latest stock data, enhancing their research and experience.
                 </p>
 
                 <p className="section__description">
                 <br/>
-                In Vietnam, many investors lack the foundational knowledge needed to confidently enter the stock market. As a result, they often rely on established sources and seek out basic information from platforms like Chat GPT. Recognizing this gap, Moketo Gr. has been developed to serve as a trusted advisor with a vast amount of financial and stock market knowledge.
-                Moketo Gr. stands out by offering accurate and up-to-date information, thanks to its ability to pull data directly from the Vnstock exchange. This real-time data integration distinguishes Moketo Gr. from other chatbot platforms, ensuring that users receive the most current and precise information available.
-                Moreover, Moketo Gr. goes beyond merely providing information. It also offers a practical environment for data scientists to test and validate their models using the latest stock data. This feature not only supports research and development but also enhances the overall user experience by providing a hands-on tool for financial analysis and experimentation. ed in the stock market.
+                In Vietnam, many investors lack the foundational knowledge needed to confidently enter the stock market. As a result, they often rely on established sources and seek out basic information from platforms like Chat GPT. Recognizing this gap, Ecoscore AI has been developed to serve as a trusted advisor with a vast amount of financial and stock market knowledge.
+                Ecoscore AI stands out by offering accurate and up-to-date information, thanks to its ability to pull data directly from the Vnstock exchange. This real-time data integration distinguishes Ecoscore AI from other chatbot platforms, ensuring that users receive the most current and precise information available.
+                Moreover, Ecoscore AI goes beyond merely providing information. It also offers a practical environment for data scientists to test and validate their models using the latest stock data. This feature not only supports research and development but also enhances the overall user experience by providing a hands-on tool for financial analysis and experimentation. ed in the stock market.
                 </p>
 
                 <div className=" d-flex align-items-center gap-3 mt-4">

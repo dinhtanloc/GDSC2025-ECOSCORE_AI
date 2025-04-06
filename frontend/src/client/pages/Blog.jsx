@@ -8,7 +8,7 @@ const Blog = () => {
   return (
     <Helmet title="Blogs">
       <CommonSection   title="Blogs" />
-      <section style={{backgroundColor:'#fff'}}>
+      <section style={{backgroundColor:'#ecf5df'}}>
         <Container >
           <Row>
             <BlogList/>

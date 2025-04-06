@@ -9,8 +9,8 @@ const AboutSection = ({ aboutClass }) => {
       className="about__section"
       style={
         aboutClass === "aboutPage"
-          ? { marginTop: "0px", backgroundColor:'#fff' }
-          : { marginTop: "280px", backgroundColor:'#fff' }
+          ? { marginTop: "0px", backgroundColor:'#f7fbf1' }
+          : { marginTop: "0px", backgroundColor:'#f7fbf1' }
       }
     >
       <Container>
@@ -18,9 +18,9 @@ const AboutSection = ({ aboutClass }) => {
           <Col lg="6" md="6">
             <div className="about__section-content">
               <h4 className="section__subtitle">About Us</h4>
-              <h2 className="section__title">Welcome to Moketo Gr.</h2>
+              <h2 className="section__title">Welcome to Ecoscore AI</h2>
               <p className="section__description">
-              Moketo Gr. is a stock investment platform designed for Vietnamese investors. It is the first investment advisory application in Vietnam that uses AI and Machine Learning to automatically calculate indices quickly and accurately. The system also features an AI chatbot specifically trained for specialized advisory tasks for projects of all sizes.
+              Ecoscore AI is a platform that quickly and accurately evaluates ESG metrics for businesses based on a wide range of verified and reliable data sources. The platform enables government organizations, non-profits, users, and even the businesses themselves to effectively assess ESG scores, precisely track activities related to sustainable consumption, and detect fraudulent behaviors in the pursuit of SDG goals.
               </p>
 
               <div className="about__section-item d-flex align-items-center">

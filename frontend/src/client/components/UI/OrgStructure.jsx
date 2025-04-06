@@ -29,14 +29,14 @@ console.warn = function (...args) {
     <>
     {/* <CommonSection title="About Us" /> */}
 
-      <section className="about__page-section" style={{backgroundColor:'#fff'}}>
+      <section className="about__page-section" style={{backgroundColor:'#f7fbf1'}}>
         <Container>
           <Col lg="12" className="mb-5 text-center">
               <h6 className="section__subtitle">See our</h6>
               <h2 className="section__title">Company structure</h2>
             </Col>
               <p className="section__description">
-              To bring Moketo Gr. to reality, we must acknowledge the dedicated team of the company, comprising passionate young professionals from the fields of technology and innovation at UEH University. Each department plays a crucial role in ensuring the project's success and its positive development.
+              To bring Ecoscore AI to reality, we must acknowledge the dedicated team of the company, comprising passionate young professionals from the fields of technology and innovation at UEH University. Each department plays a crucial role in ensuring the project's success and its positive development.
               </p>
 
               <p className="section__description">

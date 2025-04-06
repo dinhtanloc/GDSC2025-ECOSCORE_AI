@@ -4,7 +4,6 @@ from chatbot.configs.config import LoadToolsConfig
 from chatbot.models.agent_graph.build_full_graph import build_graph
 from chatbot.models.utils.app_utils import create_directory
 from chatbot.models.utils.memory import Memory
-# from chatbot.model.utils.langsmith_metrics import log_event
 from datetime import datetime
 import pytesseract
 from PIL import Image
@@ -58,15 +57,5 @@ class ChatBot:
         chatbot.append(
             (message, event["messages"][-1].content))
         response_content = event["messages"][-1].content
-        # user_id = userid
-        # log_event({
-        #         "user_id": user_id,
-        #         "user_query": message,
-        #         "bot_response": response_content,
-        #         "timestamp": datetime.now()
-        #     })
-        # Memory.write_chat_history_to_cache(
-        #     gradio_chatbot=chatbot, thread_id=TOOLS_CFG.thread_id, user=userid
-        # )
         Memory.save_chat_interaction(user=self.user_id, thread_id=self.thread_id, user_query=message, response=response_content)
         return "", chatbot

@@ -7,6 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* background-color: #f7fbf1; */
   font-family: "Source Sans Pro", sans-serif;
 }
 
@@ -17,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #000d6b;
+  color: #0c4d26;
   font-weight: 600;
   margin-bottom: 0;
 }
@@ -47,30 +48,31 @@ ul {
 }
 
 .section__title {
-  color: #000d6b;
+  color: #0c4d26;
   font-weight: 600;
   font-size: 2rem;
 }
 
 .section__subtitle {
-  color: #f9a826;
+  color: #734c0d;
   font-weight: 600;
   font-size: 1.2rem;
 }
 
 .section__description {
-  color: #7c8a97;
-  font-size: 0.9rem;
+  color: #566741;
+  font-size: 1rem;
   line-height: 30px;
 }
 
 section {
   padding: 30px 0px;
+  background: #ecf5df;
 }
 
 .btn {
   padding: 7px 15px;
-  background: #000d6b;
+  background: #0c4d26;
   color: #fff;
   border: none;
   outline: none;
@@ -79,7 +81,7 @@ section {
 }
 
 .btn:hover {
-  color: #fff !important;
+  color: #c31b1b !important;
   background: #000c6bd0;
 }
 

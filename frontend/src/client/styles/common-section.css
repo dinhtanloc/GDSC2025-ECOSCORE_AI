@@ -1,5 +1,5 @@
 .common__section {
-  background: linear-gradient(rgb(0, 13, 107, 0.6), rgb(0, 13, 107, 0.6)),
+  background: linear-gradient(rgba(46, 106, 78, 0.6), rgba(12, 62, 2, 0.6)),
     url("../assets/all-images/common.png");
   background-position: center;
   background-size: cover;

@@ -1,8 +1,8 @@
 export const data = [
   [
     {
-      v: "Moketo Gr.",
-      f: 'Moketo Gr.<div style="color:red; font-style:italic; font-size:32px">President</div>',
+      v: "Ecoscore AI",
+      f: 'Ecoscore AI<div style="color:red; font-style:italic; font-size:32px">President</div>',
     },
     "",
     "The President",
@@ -13,7 +13,7 @@ export const data = [
       v: "IT Department",
       f: 'IT Department<div style="color:blue; font-style:italic">Manager <br/> Loc Dinh Tan</div>',
     },
-    "Moketo Gr.", 
+    "Ecoscore AI", 
     "Manager",
   ],
   [
@@ -21,7 +21,7 @@ export const data = [
       v: "Product Department",
       f: 'Product Department<div style="color:purple; font-style:italic">Manager </br>Huong Nguyen</div>',
     },
-    "Moketo Gr.", 
+    "Ecoscore AI", 
     "Manager",
   ],
   [
@@ -29,7 +29,7 @@ export const data = [
       v: "HR Department",
       f: 'HR Department<div style="color:green; font-style:italic">Manager </br> Chi Tran</div>',
     },
-    "Moketo Gr.", 
+    "Ecoscore AI", 
     "Manager",
   ],
 
@@ -38,7 +38,7 @@ export const data = [
       v: "Advisor Department",
       f: 'Advisor Department<div style="color:orange; font-style:italic"></div>',
     },
-    "Moketo Gr.",
+    "Ecoscore AI",
     "Head of Consulting",
   ],
 

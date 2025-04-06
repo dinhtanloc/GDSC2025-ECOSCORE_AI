@@ -7,7 +7,7 @@ import AboutSection from "@client/components/UI/AboutSection";
 import ServicesList from "@client/components/UI/ServicesList";
 import BecomeOurCustomer from "@client/components/UI/BecomeOurCustomer";
 import Testimonial from "@client/components/UI/Testimonial";
-import "@client/styles/find-car-form.css"
+// import "@client/styles/find-car-form.css"
 import BlogList from "@client/components/UI/BlogList";
 
 const HomePage = () => {
@@ -34,57 +34,6 @@ const HomePage = () => {
       {/* ============= hero section =========== */}
       <section className="p-0 hero__slider-section">
         <HeroSlider />
-
-        <div className="hero__form">
-          <Container>
-            <Row className="form__row" >
-              <Col lg="4" md="4">
-                <div className="find__cars-left">
-                  <h2>Find your best ticker here</h2>
-                </div>
-              </Col>
-
-              <Col lg="5" md="5" sm="12">
-                <Form className="form"  onSubmit={handleFindCar}>
-                  <div className=" d-flex align-items-center justify-content-between flex-wrap">
-                    <FormGroup className="form__group" style={{width:"65%"}}>
-                      <input 
-                      type="text"
-                      value={prompt} 
-                      placeholder="What ticket do you want?"
-                      onChange={(e) => setPrompt(e.target.value)}
-                      required />
-                    </FormGroup>
-
-                    <FormGroup className="form__group">
-                    <input 
-                      type="text" 
-                      value={color} 
-                      placeholder="Color" 
-                      onChange={(e) => setColor(e.target.value)}
-                    />
-                    </FormGroup>
-                    <FormGroup className="form__group">
-                      <select>
-                        <option value="ac">AC Ticket</option>
-                        <option value="non-ac">Non AC Ticket</option>
-                      </select>
-                    </FormGroup>
-                    <FormGroup className="select__group">
-                      <button type="submit" className="btn find__car-btn" >Find Ticker</button>
-                    </FormGroup>
-
-                   
-                  </div>
-                </Form>
-              </Col>
-              <Col lg="3" md="3" sm="12" >
-              <div className="find__cars-right" style={{width:"100%", height:'100%'}}></div>
-
-              </Col>
-            </Row>
-          </Container>
-        </div>
       </section>
       {/* =========== about section ================ */}
       <AboutSection />

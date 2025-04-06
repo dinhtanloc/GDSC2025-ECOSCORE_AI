@@ -1,18 +1,20 @@
 .slider__item {
   max-width: 100%;
   height: 650px;
+  
 }
 
 .slider__item-01 {
-  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+  background: linear-gradient(rgba(0, 107, 41, 0.5), rgba(89, 157, 5, 0.5)),
     url("/media/background1.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  
 }
 
 .slider__item-02 {
-  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+  background: linear-gradient(rgba(137, 194, 159, 0.5), rgba(0, 107, 93, 0.5)),
     url("/media/background2.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -20,7 +22,7 @@
 }
 
 .slider__item-03 {
-  background: linear-gradient(rgb(0, 13, 107, 0.5), rgb(0, 13, 107, 0.5)),
+  background: linear-gradient(rgba(0, 107, 41, 0.5), rgba(0, 107, 93, 0.5)),
     url("/media/background3.png");
   background-position: center;
   background-repeat: no-repeat;
@@ -33,16 +35,23 @@
 
 .slider__content {
   padding-top: 150px;
+  color: #0c4d26;
+  
 }
 
 .slider__content h1 {
   font-size: 3.2rem;
   font-weight: 600;
+  color: #da9131 !important;
+}
+
+.slider__content h4 {
+  color: #f2f3f3 !important;
 }
 
 .reserve__btn {
   background: #fff !important;
-  color: #000d6b !important;
+  color: #0c4d26 !important;
   border: none;
   outline: none;
 }
@@ -50,11 +59,11 @@
 .reserve__btn a {
   text-decoration: none;
   font-weight: 600;
-  color: #000d6b;
+  color: #0c4d26;
 }
 
 .reserve__btn:hover {
-  background: #000d6b;
+  background: #0c4d26;
   color: #fff;
 }
 

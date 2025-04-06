@@ -26,13 +26,16 @@ const Layout = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const api = useAxios();
+  console.log("logined");
 
   useEffect(() => {
+    console.log("check");
     const fetchUser = async () => {
       try {
         const res = await api.get("accounts/user/current-user/");
         setCurrentUser(true);
         const name_login = res.data.response.username;
+        console.log(res);
         setName(name_login)
       } catch (error) {
         setCurrentUser(false);

@@ -4,7 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 
 // https://vite.dev/config/
-const envPath = path.resolve(__dirname, '../../.env');
+const envPath = path.resolve(__dirname, '../.env');
 dotenv.config({ path: envPath });
 
 export default defineConfig({

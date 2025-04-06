@@ -13,7 +13,6 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # Sao chép toàn bộ mã nguồn FastAPI vào container
 COPY ./app /code/app
 
-# Expose cổng 8000 (hoặc 80 nếu bạn muốn)
 EXPOSE 3000
 
 # Chạy ứng dụng FastAPI bằng Uvicorn

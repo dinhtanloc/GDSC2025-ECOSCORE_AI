@@ -23,7 +23,7 @@ const HeroSlider = () => {
         <Container>
           <div className="slider__content ">
             <h4 className="text-light mb-3">For Final Vietnam Market session 2025 </h4>
-            <h1 className="text-light mb-4">Use our service to experience these amazing features.</h1>
+            <h1 className="text-light mb-4">Quickly Assess ESG Performance</h1>
 
             <button className="btn reserve__btn mt-4">
               <Link to="/cars">Reserve Now</Link>
@@ -35,8 +35,8 @@ const HeroSlider = () => {
       <div className="slider__item slider__item-02 mt0">
         <Container>
           <div className="slider__content ">
-            <h4 className="text-light mb-3">Build your success </h4>
-            <h1 className="text-light mb-4">Learn and save your portfolio</h1>
+            <h4 className="text-light mb-3">Drive Sustainable Success </h4>
+            <h1 className="text-light mb-4">Unlock Insights, Optimize ESG Performance</h1>
 
             <button className="btn reserve__btn mt-4">
               <Link to="/cars">Reserve Now</Link>
@@ -52,7 +52,7 @@ const HeroSlider = () => {
             <h1 className="text-light mb-4">Start with us and get special gifts</h1>
 
             <button className="btn reserve__btn mt-4">
-              <Link to="/cars">Reserve Now</Link>
+              <Link to="/cars">Evaluate Now</Link>
             </button>
           </div>
         </Container>

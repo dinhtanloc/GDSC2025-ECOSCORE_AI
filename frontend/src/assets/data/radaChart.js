@@ -1,8 +1,8 @@
 let phoneData = [
   {
-    "name": "Chat GPT",
-    "Financial Knowledge": 0.3,
-    "Expert Support": 0.45,
+    "name": "Traditional validation",
+    "Transparent and accurate data": 0.3,
+    "Convenient and time-saving": 0.45,
     "Friendly and Quality": 0.25,
     "Modern and Professional": 0.45,
     "Trend and Convenience": 0.39,
@@ -11,9 +11,9 @@ let phoneData = [
     "Affordable Pricing": 0.30
   },
   {
-    "name": "Moketo Gr.",
-    "Financial Knowledge": 0.45,
-    "Expert Support": 0.40,
+    "name": "Ecoscore AI",
+    "Transparent and accurate data": 0.45,
+    "Convenient and time-saving": 0.40,
     "Friendly and Quality": 0.4,
     "Modern and Professional": 0.35,
     "Trend and Convenience": 0.41,
@@ -22,9 +22,9 @@ let phoneData = [
     "Affordable Pricing": 0.32
   },
   {
-    "name": "Robinhood",
-    "Financial Knowledge": 0.4,
-    "Expert Support": 0.1,
+    "name": "Chatbot Platfrom",
+    "Transparent and accurate data": 0.4,
+    "Convenient and time-saving": 0.1,
     "Friendly and Quality": 0.49,
     "Modern and Professional": 0.45,
     "Trend and Convenience": 0.40,

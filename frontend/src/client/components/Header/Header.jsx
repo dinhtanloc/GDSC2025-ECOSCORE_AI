@@ -96,7 +96,10 @@ const Header = ({ onSearch }) => {
         const res = await api.get("accounts/user/current-user/");
         setCurrentUser(true);
         const name_login = res.data.response.username;
-        setName(name_login)
+        console.log("name_login");
+        console.log(name_login);
+        console.log(res);
+        setName(name_login);
       } catch (error) {
         setCurrentUser(false);
         console.error('Có lỗi xảy ra khi truy cập dữ liệu:', error);
@@ -162,6 +165,7 @@ const Header = ({ onSearch }) => {
                     {/* <span>{nameuser}</span>  */}
                     
                     <Link to="/admin" className=" d-flex align-items-center gap-1">
+
                       <img src={img} style ={{width:'20px',height:'20px', marginBottom:'2px'}} alt="Default Image" ></img>
                       <span>{nameuser}</span>
                     </Link>
@@ -205,9 +209,9 @@ const Header = ({ onSearch }) => {
               <div className="logo">
                 <h1>
                   <Link to="/home" className=" d-flex align-items-center gap-2">
-                    <i className="ri-stock-line"></i>
+                    <i className="ri-recycle-line"></i>
                     <span>
-                    Online Financial <br /> Advisor
+                    ESG Rating <br /> Platforms
                     </span>
                   </Link>
                 </h1>

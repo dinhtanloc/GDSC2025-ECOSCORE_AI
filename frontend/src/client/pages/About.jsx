@@ -17,7 +17,7 @@ const About = () => {
       <CommonSection title="About Us" />
       <AboutSection aboutClass="aboutPage" />
 
-      <section className="about__page-section" style={{backgroundColor:'#fff'}}>
+      <section className="about__page-section" style={{backgroundColor:'#f7fbf1'}}>
         <Container>
           <Row>
             <Col lg="6" md="6" sm="12">
@@ -29,11 +29,11 @@ const About = () => {
             <Col lg="6" md="6" sm="12">
               <div className="about__page-content">
                 <h2 className="section__title">
-                Our mission is to help you have a safe and effective stock investment journey.
+                Our mission is to help you better understand ESGs and guide you toward achieving the SDGs.
                 </h2>
 
                 <p className="section__description">
-                In reality, in the Vietnamese market, 95% of investors fail due to a lack of experience and being driven by "herd mentality," which leads to losses and an inability to learn from their mistakes. Moketo Gr. was created as a mentor to guide you and serve as a compass, directing you towards successful investment strategies.
+                In Vietnam, many businesses claim to be sustainable without adhering to any formal evaluation frameworks. Assessing genuine sustainability is complex, requiring years of operational data and extensive metric analysis, which poses challenges for government bodies and non-profits seeking accurate evaluations. Meanwhile, many small and medium-sized enterprises (SMEs) in Vietnam aim to align with the SDGs. Beyond environmental protection, they can benefit from tax reductions on sustainability initiatives and access significant funding opportunities. Our platform simplifies sustainability assessments, offering transparent insights into a business’s ESG performance. This saves time for non-profits and government organizations while also guiding SMEs toward sustainable practices through tailored consultation.
                 </p>
 
                 <p className="section__description">

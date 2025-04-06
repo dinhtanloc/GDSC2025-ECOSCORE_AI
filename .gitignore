@@ -1,6 +1,7 @@
 .env
 .history
 .DS_Store
+__pycache__
 
 Loc_Dinh.jpg
 Huong_Nguyen.png
