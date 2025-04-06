@@ -1,8 +1,10 @@
 import os
 import yaml
 from pyprojroot import here
-from backend.settings import PROJECT_CFG
-
+from dotenv import load_dotenv
+import settings
+from backend.backend.settings import PROJECT_CFG
+load_dotenv()
 
 
 class LoadToolsConfig:

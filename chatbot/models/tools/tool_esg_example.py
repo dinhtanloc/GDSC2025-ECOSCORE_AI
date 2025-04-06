@@ -10,8 +10,8 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, ToolMessage, HumanMessage
 from datetime import datetime
 from langchain_core.prompts import ChatPromptTemplate
-from chatbot.model.tools.finance_toollists import tool_mapping, tools
-from chatbot.model.config.load_tools_config import TOOLS_CFG
+from finance_toollists import tool_mapping, tools
+from chatbot.configs.settings import TOOLS_CFG
 import json
 
 class FinanceAgent:

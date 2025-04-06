@@ -2,10 +2,9 @@
 from langchain_openai import OpenAIEmbeddings
 from sentence_transformers import SentenceTransformer
 from langchain_core.tools import tool
-from chatbot.model.config.load_tools_config import TOOLS_CFG
-from chatbot.model.utils.prepare_vectodb import PrepareVectorDB
+from utils.prepare_vectodb import PrepareVectorDB
 import os
-
+from chatbot.configs.settings import TOOLS_CFG
 
 class AdminDocumentRAGTool:
     """
@@ -102,7 +101,6 @@ class AdminDocumentRAGTool:
 
         pipeline = [vector_search_stage, unset_stage, project_stage]
 
-        # Execute the search
         try:
             results = self.vectordb.collection.aggregate(pipeline)
             return list(results)

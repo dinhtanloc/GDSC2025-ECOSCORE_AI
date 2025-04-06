@@ -2,16 +2,16 @@ import unittest
 import sys
 import os
 import django
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../')))
+import chatbot.configs.settings
 os.environ['DJANGO_SETTINGS_MODULE'] = 'backend.settings'  
 
 django.setup()
 from datetime import datetime
-from chatbot.model.utils.memory import Memory
+from chatbot.models.utils.memory import Memory
 from typing import List, Tuple
-from chatbot.model.chatbot_backend import ChatBot 
-from backend.backend.config.load_config import LoadProjectConfig
-from chatbot.model.config.load_tools_config import LoadToolsConfig
+from chatbot.models.chatbot_backend import ChatBot 
+from backend.backend.config import LoadProjectConfig
+from chatbot.configs.settings import LoadToolsConfig
 # from model.tools.load_tools_config import LoadToolsConfig
 from django.test import TestCase
 os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'

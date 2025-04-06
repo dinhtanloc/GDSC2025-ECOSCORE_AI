@@ -4,7 +4,7 @@ from pyprojroot import here
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import pymongo
-from backend.settings import PROJECT_CFG
+from backend.backend.settings import PROJECT_CFG
 os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
 from PIL import Image
 import pytesseract
