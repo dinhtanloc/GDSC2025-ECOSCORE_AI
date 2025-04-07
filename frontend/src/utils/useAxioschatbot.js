@@ -4,9 +4,9 @@ import dayjs from "dayjs";
 import { useContext } from "react";
 import AuthContext from "@context/AuthContext";
 
-const baseURL = import.meta.env.VITE_DOMAIN_BACKEND;
+const baseURL = import.meta.env.VITE_DOMAIN_CHATBOT;
 
-const useAxios = () => {
+const useAxios1 = () => {
   console.log(baseURL)
   const { authTokens, setUser, setAuthTokens } = useContext(AuthContext);
 
@@ -43,4 +43,4 @@ const useAxios = () => {
   return axiosInstance;
 };
 
-export default useAxios;
+export default useAxios1;

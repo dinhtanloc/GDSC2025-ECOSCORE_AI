@@ -3,7 +3,7 @@ import os
 import yaml
 from dotenv import load_dotenv, find_dotenv
 from pyprojroot import here
-# from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer
 
 load_dotenv(find_dotenv())
 
@@ -17,7 +17,7 @@ class LoadProjectConfig:
         # os.environ["LANGCHAIN_TRACING_V2"] = app_config["langsmith"]["tracing"]
         # os.environ["LANGCHAIN_PROJECT"] = app_config["langsmith"]["project_name"]
         self.memory_dir = here(app_config["memory"]["directory"])
-        # self.embedding_model = SentenceTransformer("keepitreal/vietnamese-sbert")
+        self.embedding_model = SentenceTransformer("keepitreal/vietnamese-sbert")
 
 
         #keys project
@@ -29,10 +29,10 @@ class LoadProjectConfig:
         self.dbport=os.getenv('DB_port')
         #chatbot database settings
         self.postgrest_dbms = os.getenv('POSTGRESQL_DBMS_KEY')
-        # self.mongodb_uri = os.getenv('MONGODB_URL')
+        self.mongodb_uri = os.getenv('MONGODB_URL')
 
-        # self.openai =os.getenv("OPEN_API_KEY")
-        # self.tavily = os.getenv("TAVILY_API_KEY")
+        self.openai =os.getenv("OPEN_API_KEY")
+        self.tavily = os.getenv("TAVILY_API_KEY")
 
         #adminData
         self.admindata_docdir= app_config["admindata"]["doc_dir"]
@@ -40,11 +40,11 @@ class LoadProjectConfig:
         self.admindata_chunk_overlap= app_config["admindata"]["chunk_overlap"]
         self.admindata_dbname= app_config["admindata"]["db_name"]
         self.admindata_collection=app_config["admindata"]["collection_name"]
-        # self.admindata_mongodb_uri = os.getenv('MONGODB_URL')
+        self.admindata_mongodb_uri = os.getenv('MONGODB_URL')
 
         self.userdata_docdir= app_config["userdata"]["doc_dir"]
         self.userdata_chunksize= app_config["userdata"]["chunk_size"]
         self.userdata_chunk_overlap= app_config["userdata"]["chunk_overlap"]
         self.userdata_dbname= app_config["userdata"]["db_name"]
         self.userdata_collection=app_config["userdata"]["collection_name"]
-        # self.userdata_mongodb_uri = os.getenv('MONGODB_URL')
+        self.userdata_mongodb_uri = os.getenv('MONGODB_URL')

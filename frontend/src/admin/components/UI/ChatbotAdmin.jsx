@@ -3,6 +3,7 @@ import '@admin/styles/chatbotadmin.css';
 import { useTheme } from "@mui/material";
 import { assets } from '@assets/chatbot/assets';
 import { ChatbotContext } from '@context/ChatbotContext';
+import useAxios1 from '@utils/useAxioschatbot';
 import useAxios from "@utils/useAxios";
 import LoadingPage from './LoadingPage';
 
@@ -11,6 +12,7 @@ const ChatbotAdmin = () => {
     const { onSent, recentPrompt, historyMessage, fullRes, showResult, loading, resultData, setInput, input } = useContext(ChatbotContext);
     const msgEnd = useRef(null);
     const api = useAxios();
+    const chatbot = useAxios1();
     const [isUploading, setIsUploading] = useState(false);
     const [img,setImage]=useState('');
 
@@ -67,7 +69,7 @@ const ChatbotAdmin = () => {
         setIsUploading(true);
 
         try {
-            const response = await api.post("/chatbot/upload/file/", formData, {
+            const response = await chatbot.post("/upload/file/", formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

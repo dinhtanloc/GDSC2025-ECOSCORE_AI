@@ -3,7 +3,8 @@ import '@client/styles/chatbot.css';
 import { useTheme } from "@mui/material";
 import { assets } from '@assets/chatbot/assets';
 import { ChatbotContext } from '@context/ChatbotContext';
-import useAxios from '@utils/useAxios';
+import useAxios1 from '@utils/useAxioschatbot';
+import useAxios from '@utils/useAxios'; // Import your custom hook for axios
 
 const Chatbot = () => {
     const theme = useTheme();
@@ -14,12 +15,13 @@ const Chatbot = () => {
     const [message, setMessage] = useState('');
     const [fileUrl, setFileUrl] = useState('');
     const [img,setImage]=useState('');
-    const chatbot = useAxios();
+    const use = useAxios();
+    const chatbot = useAxios1();
 
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-              const res = await chatbot.get("accounts/user/profile/");
+              const res = await use.get("accounts/user/profile/");
               const profile = res.data;
               var imgUrl = profile.image
               setImage(imgUrl)

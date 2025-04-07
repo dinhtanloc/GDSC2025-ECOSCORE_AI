@@ -5,7 +5,7 @@ FROM python:3.10
 WORKDIR /code
 
 # Sao chép file requirements.txt vào container
-COPY ./requirements.txt /code/requirements.txt
+COPY ../requirements.txt /code/requirements.txt
 
 # Cài đặt các dependencies
 RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt

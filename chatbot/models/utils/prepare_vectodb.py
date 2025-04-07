@@ -9,7 +9,7 @@ os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
 from PIL import Image
 import pytesseract
 
-with open(here("config/tools_config.yml")) as cfg:
+with open(here("configs/tools_config.yml")) as cfg:
     app_config = yaml.load(cfg, Loader=yaml.FullLoader)
 
 CHUNK_SIZE = app_config["document_rag_pdf"]["chunk_size"]

@@ -1,11 +1,11 @@
 import os
 import pandas as pd
 from typing import List
+from chatbot.configs.config import TOOLS_CFG
 from datetime import datetime, date
-from chatbot.models import ChatHistory
-from accounts.models import User
-from chatbot.model.utils.prepare_vectodb import PrepareVectorDB
-from chatbot.model.config.load_tools_config import TOOLS_CFG
+# from backendimport ChatHistory
+# from backend.accounts.models import User
+from chatbot.models.utils.prepare_vectodb import PrepareVectorDB
 class Memory:
     """
         Lớp này chịu trách nhiệm xử lý việc lưu trữ lịch sử hội thoại của chatbot.
@@ -72,16 +72,16 @@ class Memory:
             None
         """
         if Memory.cache:
-            ChatHistory.objects.bulk_create([
-                ChatHistory(
-                    user=item['user'],
-                    thread_id=item['thread_id'],
-                    user_query=item['user_query'],
-                    response=item['response'],
-                    timestamp=item['timestamp']
-                )
-                for item in Memory.cache
-            ])
+            # ChatHistory.objects.bulk_create([
+            #     ChatHistory(
+            #         user=item['user'],
+            #         thread_id=item['thread_id'],
+            #         user_query=item['user_query'],
+            #         response=item['response'],
+            #         timestamp=item['timestamp']
+            #     )
+            #     for item in Memory.cache
+            # ])
             for item in Memory.cache:
                 Memory.vectodb.save_history_response_vectodb(userid=item['user'], response=item['response'])
 
@@ -106,18 +106,19 @@ class Memory:
         print(f"Saving chat interaction: User: {user}, Thread ID: {thread_id}, Query: {user_query}, Response: {response}")
         # user_instance = User.objects.get(id=user)
         try:
-            user_instance = User.objects.get(id=user)
+            # user_instance = User.objects.get(id=user)
+            user_instance = 'User.objects.get(id=user)'
         except User.DoesNotExist:
             print(f"User with id {user} does not exist.")
             return  
-        chat_history = ChatHistory(
-            user=user_instance,
-            thread_id=thread_id,
-            user_query=user_query,
-            response=response,
-            timestamp=datetime.now()
-        )
-        chat_history.save()
+        # chat_history = ChatHistory(
+        #     user=user_instance,
+        #     thread_id=thread_id,
+        #     user_query=user_query,
+        #     response=response,
+        #     timestamp=datetime.now()
+        # )
+        # chat_history.save()
         Memory.vectodb.save_history_response_vectodb(userid=user, response=response)
 
     @staticmethod
@@ -132,7 +133,8 @@ class Memory:
         Trả về:
             List: Danh sách các tin nhắn trong lịch sử hội thoại.
         """
-        history = ChatHistory.objects.filter(user=user, thread_id=thread_id).order_by('timestamp')
+        # history = ChatHistory.objects.filter(user=user, thread_id=thread_id).order_by('timestamp')
+        history = []
         return [(entry.user_query, entry.response) for entry in history]
 
     @staticmethod

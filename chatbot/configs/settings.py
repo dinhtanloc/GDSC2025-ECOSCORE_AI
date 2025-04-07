@@ -8,4 +8,3 @@ for lib in [root_dir][::-1]:
     if lib in sys.path:
         sys.path.remove(lib)
     sys.path.insert(0,lib)
-import chatbot.models.utils.a

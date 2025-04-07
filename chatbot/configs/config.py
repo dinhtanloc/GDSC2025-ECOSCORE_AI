@@ -2,20 +2,20 @@ import os
 import yaml
 from pyprojroot import here
 from dotenv import load_dotenv
-import settings
+import configs.settings
 from backend.backend.settings import PROJECT_CFG
 load_dotenv()
 
 
 class LoadToolsConfig:
-
     def __init__(self) -> None:
-        with open(here("config/tools_config.yml")) as cfg:
+        with open(here("configs/tools_config.yml")) as cfg:
             app_config = yaml.load(cfg, Loader=yaml.FullLoader)
 
         # Set environment variables
         os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
         os.environ['TAVILY_API_KEY'] = PROJECT_CFG.tavily
+        self.backend_secret= os.getenv('DJANGO_keys')
         self.stock_db = PROJECT_CFG.postgrest_dbms
 
 

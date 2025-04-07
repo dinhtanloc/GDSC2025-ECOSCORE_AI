@@ -31,7 +31,6 @@ class ChatBot:
         self.thread_id = thread_id or str(uuid.uuid4())
         self.user_id = user_id
 
-    # @staticmethod
     def respond(self, chatbot: List, message: str) -> Tuple:
         """
         Xử lý một tin nhắn từ người dùng bằng cách sử dụng đồ thị tác nhân, sinh ra phản hồi và thêm phản hồi vào lịch sử hội thoại.

@@ -2,9 +2,11 @@
 from langchain_openai import OpenAIEmbeddings
 from sentence_transformers import SentenceTransformer
 from langchain_core.tools import tool
-from utils.prepare_vectodb import PrepareVectorDB
+from chatbot.models.utils.prepare_vectodb import PrepareVectorDB
 import os
-from chatbot.configs.settings import TOOLS_CFG
+from chatbot.configs.config import TOOLS_CFG
+from backend.backend.settings import PROJECT_CFG
+
 
 class AdminDocumentRAGTool:
     """
@@ -42,7 +44,7 @@ class AdminDocumentRAGTool:
         collection_name (str): Tên của bộ sưu tập trong cơ sở dữ liệu vector chứa các tài liệu do người dùng tải lên.
         """
         self.name = "lookup_user_document"
-        self.embedding_model = SentenceTransformer("keepitreal/vietnamese-sbert")
+        self.embedding_model = PROJECT_CFG.embedding_model
         self.db_name=db_name
         self.mongodb_uri= mongodb_uri
         self.k = k

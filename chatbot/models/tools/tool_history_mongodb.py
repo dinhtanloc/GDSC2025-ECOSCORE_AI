@@ -9,8 +9,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from chatbot.model.config.load_tools_config import TOOLS_CFG
-from backend.settings import PROJECT_CFG
+from chatbot.configs.config import TOOLS_CFG
+from backend.backend.settings import PROJECT_CFG
 import pymongo
 import os
 
