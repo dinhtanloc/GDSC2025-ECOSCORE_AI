@@ -5,11 +5,9 @@ from dotenv import load_dotenv, find_dotenv
 from pyprojroot import here
 from sentence_transformers import SentenceTransformer
 
-load_dotenv(find_dotenv())
 
-with open(here("configs/project_config.yml")) as cfg:
+with open(here(f"configs/project_config.yml")) as cfg:
     app_config = yaml.load(cfg, Loader=yaml.FullLoader)
-
 
 class LoadProjectConfig:
     def __init__(self) -> None:

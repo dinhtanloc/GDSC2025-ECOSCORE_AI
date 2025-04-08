@@ -57,6 +57,7 @@ INSTALLED_APPS = [
 
     #custom app
     'accounts',
+    'chatbot'
 
     # Third Party
     'channels',

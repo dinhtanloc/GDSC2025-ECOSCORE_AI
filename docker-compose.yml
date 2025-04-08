@@ -1,22 +1,19 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: ./backend
-    image: gdsc_2025/backend:latest
+    image: dinhtanloc/gdsc_2025/backend:backend
     env_file:
       - ./.env
     ports:
       - "8000:8000"
     volumes:
       - ./backend:/app
-      - /app/node_modules
 
   frontend:
     build:
       context: ./frontend
-    image: gdsc_2025/frontend:latest
+    image: dinhtanloc/gdsc_2025/frontend:frontend
     env_file:
       - ./.env
     ports:
@@ -25,14 +22,15 @@ services:
       - ./frontend:/app
       - /app/node_modules
 
-  chatbot:
-    build:
-      context: ./chatbot
-    image: gdsc_2025/chatbot:latest
-    env_file:
-      - ./.env
-    ports:
-      - "3000:3000"
+
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_DB: ${DB_name}
+      POSTGRES_USER: ${DB_user}
+      POSTGRES_PASSWORD: ${DB_password}
     volumes:
-      - ./chatbot:/app
-      - /app/node_modules
+      - postgres_data:/var/lib/postgresql/data/
+
+volumes:
+  postgres_data:
