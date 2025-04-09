@@ -46,3 +46,5 @@ class LoadProjectConfig:
         self.userdata_dbname= app_config["userdata"]["db_name"]
         self.userdata_collection=app_config["userdata"]["collection_name"]
         self.userdata_mongodb_uri = os.getenv('MONGODB_URL')
+
+PROJECT_CFG = LoadProjectConfig()
