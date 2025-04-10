@@ -3,7 +3,6 @@ import '@client/styles/chatbot.css';
 import { useTheme } from "@mui/material";
 import { assets } from '@assets/chatbot/assets';
 import { ChatbotContext } from '@context/ChatbotContext';
-import useAxios1 from '@utils/useAxioschatbot';
 import useAxios from '@utils/useAxios'; // Import your custom hook for axios
 
 const Chatbot = () => {
@@ -16,7 +15,6 @@ const Chatbot = () => {
     const [fileUrl, setFileUrl] = useState('');
     const [img,setImage]=useState('');
     const use = useAxios();
-    const chatbot = useAxios1();
 
     useEffect(() => {
         const fetchProfile = async () => {
@@ -48,7 +46,7 @@ const Chatbot = () => {
             formData.append('pdf_file', selectedFile);
 
             try {
-                const res = await chatbot.post('/chatbot/upload/pdf/', formData);
+                const res = await use.post('/agents/chatbot/upload/pdf/', formData);
                 setFileUrl(res.data.file_url);
             } catch (error) {
                 console.error(error);

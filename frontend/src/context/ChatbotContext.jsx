@@ -1,10 +1,10 @@
 import { createContext, useState } from "react";
-import useAxios1 from "@utils/useAxioschatbot"; 
+import useAxios from "@utils/useAxios"; 
 
 export const ChatbotContext = createContext();
 
 const ChatbotContextProvider = (props) => {
-    const axiosInstance = useAxios1(); 
+    const axiosInstance = useAxios(); 
     const [input, setInput] = useState("");
     const [recentPrompt, setRecentPrompt] = useState("");
     const [prevPrompts, setPrevPrompts] = useState([]);
@@ -36,7 +36,7 @@ const ChatbotContextProvider = (props) => {
 
     const getChatbotAnswer = async (prompt) => {
         try {
-            const response = await axiosInstance.post("/chatbot/interact/", {'message': prompt });
+            const response = await axiosInstance.post("/agents/chatbot/interact/", {'message': prompt });
 
             return response.data.response; 
         } catch (error) {

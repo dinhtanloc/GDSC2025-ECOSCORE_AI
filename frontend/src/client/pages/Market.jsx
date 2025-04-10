@@ -11,7 +11,7 @@ import ChatIcon from '@mui/icons-material/Chat';
 import { useNavigate } from "react-router-dom"; 
 import { useContext } from "react";
 
-// import StockAgChart from "@client/components/UI/StockAgChart";
+import StockAgChart from "@client/components/UI/StockAgChart";
 import StatBox from '@client/components/UI/StatBox'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import useAxios from '@utils/useAxios'
@@ -63,7 +63,7 @@ const Market = () => {
 
     return (
         <Helmet title="Stock Analysis">
-            <section className="about__page-section" style={{ backgroundColor: '#f7fbf1' }}>
+            <section className="about__page-section" style={{ backgroundColor: '#fff' }}>
                 <Container>
                     <Row>
                         <div>This is stock market</div>
@@ -202,7 +202,7 @@ const Market = () => {
                     
                         <Box
                         gridColumn="span 3"
-                        backgroundColor={"#f7fbf1"}
+                        backgroundColor={"#fff"}
                         display="flex"
                         alignItems="center"
                         justifyContent="center"
@@ -234,7 +234,7 @@ const Market = () => {
                             height="450"
                         >
                             {/* <StockAgChart data={stockDataFunc()} name={name}/> */}
-                            {/* <StockAgChart /> */}
+                            <StockAgChart />
                         </Box>
                         <Box
                             gridColumn="span 5"
@@ -286,7 +286,7 @@ const Market = () => {
                         <Box
                             gridColumn="span 11"
                             gridRow="span 1"
-                            backgroundColor={"#f7fbf1"}
+                            backgroundColor={"#fff"}
                             // ref={boxRef}
                             display="flex"
                             justifyContent="center"

@@ -5,10 +5,11 @@ import { AgFinancialCharts } from "ag-charts-react";
 import { AgCharts as AgChartsEnterprise } from "ag-charts-enterprise";
 import { tokens } from "@theme";
 
-AgChartsEnterprise.setLicenseKey(import.meta.env.VITE_AG_CHART);
 import "ag-charts-enterprise";
 import getData from "@assets/data/stockData"
 // import { AgFinancialChartOptions } from "ag-charts-enterprise";
+console.log(import.meta.env.VITE_DOMAIN_BACKEND);
+// AgChartsEnterprise.setLicenseKey(import.meta.env.VITE_AG_CHART);
 const StockAgChart = () => {
   const theme = useTheme();
 

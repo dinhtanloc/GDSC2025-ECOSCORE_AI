@@ -16,7 +16,7 @@ import ChatbotPage from "@client/pages/ChatbotPage"
 
 import PrivateRoute from '@utils/PrivateRoute'
 import useAxios from "@utils/useAxios";
-import StockDashboard from "@client/pages/StockDashboard";
+import ESGDashboard from "@client/pages/ESGDashboard";
 
 const Routers = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +73,7 @@ const Routers = () => {
           {/* <Route path="/stock-market" element={<Market /> } /> */}
           <Route path="/table" element={<TableComponent />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/stock-dashboard" element={<StockDashboard />} />
+          <Route path="/stock-dashboard" element={<ESGDashboard />} />
      
           <Route exact path='/stock-market' element={<PrivateRoute/>}>
             <Route exact path='/stock-market'element={<Market />}/>

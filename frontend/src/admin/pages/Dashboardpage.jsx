@@ -11,7 +11,7 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import InventoryIcon from '@mui/icons-material/Inventory';
 import Header from "./HeaderDashboard";
 import useAxios from "@utils/useAxios"
-// import StockAgChart from "@admin/components/UI/StockAgChart";
+import StockAgChart from "@admin/components/UI/StockAgChart";
 import { mockTransactions } from "@assets/data/mockData";
 import LineChart from "@admin/components/UI/LineChart";
 import GeographyChart from "@admin/components/UI/GeographyChart";

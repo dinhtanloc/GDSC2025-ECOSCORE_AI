@@ -1,0 +1,42 @@
+/* src/styles/esg-chart.css */
+.esg-score-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .donut-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .esg-details {
+    font-size: 16px;
+  }
+  
+  .esg-details h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .category {
+    margin-bottom: 20px;
+  }
+  
+  .category-name {
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .category ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .category li {
+    margin-bottom: 5px;
+  }

@@ -130,8 +130,8 @@ const ProSidebar = (data) => {
             </Typography>
     
             <Item
-              title="Training model"
-              to="/admin/prediction"
+              title="Data pipeline"
+              to="/admin/data-pipeline"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
