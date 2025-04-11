@@ -1,6 +1,6 @@
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.graph import StateGraph, START
-from langchain_openai import ChatOpenAI
+
 # from agent_graph.tool_chinook_sqlagent import query_chinook_sqldb
 from chatbot.model.tools.tool_finance_knowledge import query_stock_logic
 from chatbot.model.tools.tool_rag_pdf import lookup_user_document
@@ -51,8 +51,7 @@ def build_graph():
         - `route_tools`: Một hàm có điều kiện để xác định xem chatbot có nên gọi một công cụ hay không.
         - `graph`: Đồ thị hoàn chỉnh với các nút và các cạnh có điều kiện.
     """
-    primary_llm = ChatOpenAI(model=TOOLS_CFG.primary_agent_llm,
-                             temperature=TOOLS_CFG.primary_agent_llm_temperature)
+    primary_llm = TOOLS_CFG.LLM
     graph_builder = StateGraph(State)
     # Load tools with their proper configs
     search_tool = load_tavily_search_tool(tavily_search_max_results=TOOLS_CFG.tavily_search_max_results)

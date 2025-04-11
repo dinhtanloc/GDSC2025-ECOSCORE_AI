@@ -5,6 +5,7 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import pymongo
 from backend.settings import PROJECT_CFG
+from chatbot.model.config.load_tools_config import TOOLS_CFG
 os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
 from PIL import Image
 import pytesseract
@@ -14,7 +15,7 @@ with open(here("configs/tools_config.yml")) as cfg:
 
 CHUNK_SIZE = app_config["document_rag_pdf"]["chunk_size"]
 CHUNK_OVERLAP = app_config["document_rag_pdf"]["chunk_overlap"]
-EMBEDDING_MODEL = app_config["document_rag_pdf"]["embedding_model"]
+# EMBEDDING_MODEL = app_config["document_rag_pdf"]["embedding_model"]
 MONGODB_URI = os.getenv('MONGODB_URL') 
 COLLECTION_NAME = app_config["document_rag_pdf"]["collection_name"]
 DB_NAME = app_config["document_rag_pdf"]["db_name"]  
@@ -62,7 +63,7 @@ class PrepareVectorDB:
         self.doc_dir = doc_dir
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
-        self.embedding_model = PROJECT_CFG.embedding_model
+        self.embedding_model = TOOLS_CFG.embedding_model
         self.mongodb_uri = mongodb_uri
         self.db_name = db_name
         self.collection_name = collection_name
@@ -109,7 +110,7 @@ class PrepareVectorDB:
         """
 
         try:
-            vector = self.embedding_model.encode(response).tolist()
+            vector = self.embedding_model.embed_query(response)
         except Exception as e:
             print(f"Lỗi khi nhúng đoạn văn bản trong tệp{e}")
 
@@ -135,7 +136,7 @@ class PrepareVectorDB:
             image = Image.open(self.path_maker(file_name, self.doc_dir))
             extracted_text = pytesseract.image_to_string(image)
             try:
-                vector = self.embedding_model.encode(extracted_text).tolist()
+                vector = self.embedding_model.embed_query(extracted_text)
             except Exception as e:
                 print(f"Lỗi khi nhúng đoạn văn bản trong tệp{e}")
 
@@ -193,7 +194,7 @@ class PrepareVectorDB:
 
             for doc_split in doc_splits:
                 try:
-                    vector = self.embedding_model.encode(doc_split.page_content).tolist()
+                    vector = self.embedding_model.embed_query(doc_split.page_content)
                 except Exception as e:
                     print(f"Lỗi khi nhúng đoạn văn bản trong tệp {file_name}: {e}")
                     continue

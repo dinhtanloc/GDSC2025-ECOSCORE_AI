@@ -6,7 +6,8 @@ from langchain_core.chat_history import (
 )
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
+
+from langchain_google_vertexai import ChatVertexAI
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from chatbot.model.config.load_tools_config import TOOLS_CFG
@@ -20,7 +21,7 @@ class HistoryAgent:
     Quản lý lịch sử hội thoại cho chatbot, ghi nhớ và xử lý tin nhắn từ người dùng để duy trì ngữ cảnh trong cùng một phiên chat. Tin nhắn lịch sử không thể lưu trữ từ phiên này sang phiên khác
 
     Thuộc tính:
-        history_agent_llm (ChatOpenAI): Mô hình ngôn ngữ dùng để tạo phản hồi.
+        history_agent_llm (ChatVertexAI): Mô hình ngôn ngữ dùng để tạo phản hồi.
         chat_history (ChatMessageHistory): Lưu trữ tin nhắn từ người dùng và phản hồi từ chatbot.
         system_role (str): Mẫu nhắc hướng dẫn mô hình trong việc trả lời câu hỏi.
         chain (RunnableWithMessageHistory): Chuỗi thao tác để quản lý lịch sử và tạo phản hồi.
@@ -40,8 +41,7 @@ class HistoryAgent:
           
         """
         self.name='chat_with_history'
-        self.history_agent_llm = ChatOpenAI(
-            model=llm, temperature=llm_temperature)
+        self.history_agent_llm = ChatVertexAI(model="gemini-1.5-flash")
         self.chat_history = ChatMessageHistory()
         self.system_role = """Given the following chat history and user question, generate a response.\n
             Chat History: {chat_history}\n

@@ -8,6 +8,7 @@ import os
 import pandas as pd
 from .load.mongo_loader import MongoDBLoader
 from backend.config import PROJECT_CFG
+from chatbot.model.config.load_tools_config import TOOLS_CFG
 
 class ETLTable:
     def __init__(self, ticket_collection, db_config):
@@ -86,7 +87,7 @@ class ETLText:
         """
         self.ticket_collection = ticket_collection
         self.loader = MongoDBLoader(mongo_uri, db_name)
-        self.embedding_model = PROJECT_CFG.embedding_model
+        self.embedding_model = TOOLS_CFG.embedding_model
         self.doc_dir = doc_dir
         self.db = self.loader.client[db_name]
     def extract(self):
@@ -160,7 +161,7 @@ class ETLText:
             for doc in documents:
                 try:
                     content = doc["content"]
-                    embedding = self.embedding_model.encode(content)
+                    embedding = self.embedding_model.embed_query(content)
                     doc["vector"] = embedding.tolist()  
                 except Exception as e:
                     print(f"Failed to transform document: {e}")

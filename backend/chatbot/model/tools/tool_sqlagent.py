@@ -75,4 +75,3 @@ def query_stock_sqldb(query: str) -> str:
     )
     response = agent.chain.invoke({"question": query})
     return response
-

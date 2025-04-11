@@ -6,11 +6,12 @@ from langchain_core.chat_history import (
 )
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_openai import ChatOpenAI
+
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from chatbot.model.config.load_tools_config import TOOLS_CFG
 from backend.settings import PROJECT_CFG
+from langchain_google_vertexai import ChatVertexAI
 import pymongo
 import os
 
@@ -21,7 +22,7 @@ class HistoryMongoDBAgent:
     Quản lý lịch sử hội thoại cho chatbot sử dụng mongoDB, ghi nhớ và xử lý tin nhắn từ người dùng để duy trì ngữ cảnh. Cho dù không cùng một phiên, chatbot vẫn có khả năng trích xuất tin nhắn lịch sử từ cùng một người dùng, để trò chuyện về chủ đề trước đó
 
     Thuộc tính:
-        history_agent_llm (ChatOpenAI): Mô hình ngôn ngữ dùng để tạo phản hồi.
+        history_agent_llm (ChatVertexAI): Mô hình ngôn ngữ dùng để tạo phản hồi.
         chat_history (ChatMessageHistory): Lưu trữ tin nhắn từ người dùng và phản hồi từ chatbot.
         system_role (str): Mẫu nhắc hướng dẫn mô hình trong việc trả lời câu hỏi.
         chain (RunnableWithMessageHistory): Chuỗi thao tác để quản lý lịch sử và tạo phản hồi.
@@ -44,8 +45,8 @@ class HistoryMongoDBAgent:
             collection_name (str): Tên bộ sưu tập (collection) trong cơ sở dữ liệu MongoDB để lưu trữ lịch sử hội thoại.
         """
         self.name='chat_with_history'
-        self.history_agent_llm = ChatOpenAI(
-            model=llm, temperature=llm_temperature)
+        self.embedding_model = TOOLS_CFG.embedding_model
+        self.history_agent_llm = ChatVertexAI(model="gemini-1.5-flash")
         self.chat_history = ChatMessageHistory()
         self.user_id=user_id
         self.system_role = """Given the following chat history and user question, generate a response.\n
@@ -87,7 +88,7 @@ class HistoryMongoDBAgent:
     def save_to_mongodb(self, message: str, is_user_message: bool):
         """Lưu tin nhắn vào MongoDB."""
         try:
-            vector = self.embedding_model.encode(message).tolist()
+            vector = self.embedding_model.embed_query(message).tolist()
             document = {
                 "user_id": self.user_id,
                 "thread_id": self.thread_id,
@@ -102,7 +103,7 @@ class HistoryMongoDBAgent:
 
     def similarity_search(self, query: str, k: int = None):
         """Thực hiện tìm kiếm tin nhắn tương tự bằng cách sử dụng truy vấn từ người dùng."""
-        query_vector = self.embedding_model.encode(query).tolist()
+        query_vector = self.embedding_model.embed_query(query).tolist()
 
         if query_vector is None:
             return "Invalid query or embedding generation failed."

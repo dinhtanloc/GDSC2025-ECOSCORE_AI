@@ -2,6 +2,13 @@ import os
 import yaml
 from pyprojroot import here
 from backend.settings import PROJECT_CFG
+from vertexai.language_models import TextEmbeddingModel
+from langchain_google_vertexai import VertexAIEmbeddings
+from langchain_google_vertexai import ChatVertexAI
+import vertexai
+PROJECT_ID = "gdsc2025"  # @param {type:"string"}
+LOCATION = "us-central1" 
+
 
 
 
@@ -14,7 +21,19 @@ class LoadToolsConfig:
         # Set environment variables
         os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
         os.environ['TAVILY_API_KEY'] = PROJECT_CFG.tavily
+        print(PROJECT_CFG.google_api)
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = PROJECT_CFG.google_api
+
         self.stock_db = PROJECT_CFG.postgrest_dbms
+
+        # VertexAI init
+        vertexai.init(project=PROJECT_ID, location=LOCATION)
+        self.embedding_model = VertexAIEmbeddings(model_name="text-embedding-004")
+        self.LLM = ChatVertexAI(model="gemini-1.5-flash")
+
+
+
+
 
 
         # Primary agent

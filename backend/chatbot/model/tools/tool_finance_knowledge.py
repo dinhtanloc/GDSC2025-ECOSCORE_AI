@@ -79,5 +79,6 @@ def query_stock_logic(ques: str) -> str:
         #     tool_output = json.dumps(tool_output)
         messages.append(ToolMessage(tool_output, tool_call_id=tool_call["id"]))
     res =agent.chain.invoke(messages)
+    print(res)
     response=str(res.content)
     return response

@@ -6,7 +6,7 @@ import ava01 from "/media/member/Loc_Dinh.jpg";
 import ava02 from "/media/member/Chi_Tran.png";
 import ava03 from "/media/member/Anh_Minh.jpg";
 import ava04 from "/media/member/Ngoc_Le.png";
-import ava05 from "/media/member/Phat_Nguyen.png";
+// import ava05 from "/media/member/Phat_Nguyen.png";
 import Slider from "react-slick";
 
 const OUR__MEMBERS = [

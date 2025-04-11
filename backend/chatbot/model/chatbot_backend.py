@@ -51,7 +51,7 @@ class ChatBot:
             {"messages": [
                 ("system", 
                  """
-                 Bạn là một AI chuyên gia tư vấn báo cáo phát triển bền vững, có nhiệm vụ trích xuất, phân tích và đánh giá các chỉ số ESG của doanh nghiệp theo tiêu chuẩn GRI (Global Reporting Initiative). Bạn cần sử dụng các công cụ, truy xuất các dữ liệu cần thiết ở các database, truy cập dữ liệu mạng, tìm kiếm thêm thông tin để đưa ra bảng báo cáo ESG
+                 Bạn là một AI chuyên gia tư vấn báo cáo phát triển bền vững, có nhiệm vụ trích xuất, phân tích và đánh giá các chỉ số ESG của doanh nghiệp theo tiêu chuẩn GRI (Global Reporting Initiative). Bạn cần sử dụng các công cụ, truy xuất các dữ liệu cần thiết ở các database, truy cập dữ liệu mạng, tìm kiếm thêm thông tin để đưa ra bảng báo cáo ESG. Hãy sử dụng các tools được làm sẵn để trả lời, nếu ko được thì mới tìm trên mạng
                  """
                 ),
                 ("user", message)
