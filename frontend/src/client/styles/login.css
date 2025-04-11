@@ -20,7 +20,7 @@
 	font-size: 28px;
 	font-weight: bold;
 	margin: 0;
-	color:#8f8fc1;
+	color:#8fc1b1;
 }
 
 
@@ -45,8 +45,8 @@
 }
 .Angel, .ghost{
 	border-radius: 20px;
-	border: 1px solid #03126F;
-	background-color: #03126F;
+	border: 1px solid #0c4d26;
+	background-color: #0c4d26;
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -171,9 +171,9 @@ button.ghost {
 }
 
 .overlay {
-	background: #3B4277;
-	background: -webkit-linear-gradient(to right, #3B4277, #03126F);
-	background: linear-gradient(to right, #3B4277, #03126F);
+	background: #3b773c;
+	background: -webkit-linear-gradient(to right, #3b773c, #0c4d26);
+	background: linear-gradient(to right, #3b773c, #0c4d26);
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;

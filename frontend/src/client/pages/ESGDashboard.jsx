@@ -19,6 +19,9 @@ import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CommentList from "@client/components/UI/CommentList";
 import mockComments from "@assets/data/mockComment";
+import LoadingPage from "@client/components/UI/LoadingPage";
+import randomStatValues from "@assets/data/fakeValue";
+
 
 const detailsData = [
   {
@@ -79,11 +82,11 @@ const ESGDashboard = () => {
   const navigate = useNavigate();
   const stock = useAxios();
   const [stockData, setStockData]=useState([]);
-
   const [infoCompany, setInfo] = useState([]);
   const { stockSymbol } = useContext(StockContext);
-
   const [stockDetails, setStockDetails] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [ESG_report, setESG_report] = useState({});
 
   useEffect(() => {
     const updateStockDetails = async () => {
@@ -123,10 +126,26 @@ const ESGDashboard = () => {
 
 
     fetchCompanyInfo();
+ 
+  const fetchESGanswer = async () => {
+    try {
+        const res = await stock.post("/chatbot/evaluate/", {
+            symbol: stockSymbol, 
+          });
+        setESG_report(res.data)
+        setIsLoading(false);
+
+    } catch (error) {
+        console.error('Có lỗi xảy ra khi truy cập dữ liệu:', error);
+        
+    }
+    
+  };
+  fetchESGanswer();
   const handleResize = () => {
-      if (boxRef.current) {
-          setChartWidth(boxRef.current.offsetWidth);
-      }
+    if (boxRef.current) {
+        setChartWidth(boxRef.current.offsetWidth);
+    }
   };
 
   handleResize();
@@ -136,6 +155,12 @@ const ESGDashboard = () => {
   return () => window.removeEventListener('resize', handleResize);
   
 }, [stockData,stockSymbol, name]);
+
+if (isLoading) {
+  return (
+    <LoadingPage/>
+  );
+}
 
   return (
     
@@ -147,44 +172,42 @@ const ESGDashboard = () => {
       <div className="col-span-3 grid grid-cols-4 gap-4">
         <Box backgroundColor="#FFFFCC" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={infoCompany?.overview?.issue_share?.[0] ? `${Math.round(infoCompany.overview.issue_share[0])}B` : ""}
-            subtitle="Market Capital"
-            progress={Math.random()}
-            increase={`+${Math.floor(Math.random() * 100)}%`}
+            title={`${randomStatValues.positiveImpact} triệu`}
+            subtitle="Positive Impact"
+            progress={randomStatValues.positiveImpact / 1000}
+            increase={`+${randomStatValues.negativeRatio}%`}
             icon={<MonetizationOnIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
         <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={infoCompany?.overview?.delta_in_month ?? ""}
-            subtitle="Delta (month)"
-            progress={Math.random()}
-            increase={`+${Math.floor(Math.random() * 100)}%`}
+            title={`${randomStatValues.negativeRatio}%`}
+            subtitle="Negative Ratio"
+            progress={randomStatValues.negativeRatio / 100}
+            increase={`-${getRandomInRange(1, 10)}%`}
             icon={<PointOfSaleIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
         <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={infoCompany?.overview?.no_shareholders?.toLocaleString('de-DE') ?? ""}
-            subtitle="Shareholders"
-            progress={Math.random()}
-            increase={`+${Math.floor(Math.random() * 100)}%`}
+            title={randomStatValues.transparency.toLocaleString("de-DE")}
+            subtitle="Transparent Data"
+            progress={randomStatValues.transparency / 200_000}
+            increase={`+${getRandomInRange(10, 30)}%`}
             icon={<PointOfSaleIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
         <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={infoCompany?.overview?.stock_rating ?? "N/A"}
+            title={`${randomStatValues.rating}/5`}
             subtitle="Rating"
-            progress={infoCompany?.overview?.stock_rating ? infoCompany.overview.stock_rating / 5 : 0}
-            increase={infoCompany?.overview?.stock_rating ? `+${Math.round(100 * infoCompany.overview.stock_rating / 5)}%` : "N/A"}
+            progress={randomStatValues.rating / 5}
+            increase={`+${Math.round(randomStatValues.rating / 5 * 100)}%`}
             icon={<PointOfSaleIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
       </div>
                     
-
-      {/* ESG Section: Score (7) + Bar Chart (3) */}
       <div className="col-span-2 row-span-4 grid grid-cols-10 gap-4 bg-transparent">
 
         <div className="bg-white rounded-xl shadow col-span-10 row-span-1 h-[300px] overflow-hidden">

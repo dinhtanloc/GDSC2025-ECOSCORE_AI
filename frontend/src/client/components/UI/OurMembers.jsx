@@ -4,7 +4,7 @@ import { Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import ava01 from "/media/member/Loc_Dinh.jpg";
 import ava02 from "/media/member/Chi_Tran.png";
-import ava03 from "/media/member/Huong_Nguyen.png";
+import ava03 from "/media/member/Anh_Minh.jpg";
 import ava04 from "/media/member/Ngoc_Le.png";
 import ava05 from "/media/member/Phat_Nguyen.png";
 import Slider from "react-slick";
@@ -12,7 +12,7 @@ import Slider from "react-slick";
 const OUR__MEMBERS = [
   {
     name: "Loc Tan Dinh",
-    experience: "IT Department Header",
+    experience: "Software Engineer",
     fbUrl: import.meta.env.VITE_FACEBOOK,
     instUrl: "#",
     twitUrl: "#",
@@ -21,7 +21,7 @@ const OUR__MEMBERS = [
   },
   {
     name: "Chi Tran Thi Kim",
-    experience: "Project Coordinator",
+    experience: "ESG Analyst",
     fbUrl: "#",
     instUrl: "#",
     twitUrl: "#",
@@ -30,18 +30,8 @@ const OUR__MEMBERS = [
   },
 
   {
-    name: "Huong Nguyen Thi Thanh",
-    experience: "Design Manager",
-    fbUrl: "#",
-    instUrl: "#",
-    twitUrl: "#",
-    linkedinUrl: "#",
-    imgUrl: ava03,
-  },
-
-  {
     name: "Ngoc Le Thi Bao",
-    experience: "Market Researcher",
+    experience: "Business Development",
     fbUrl: "#",
     instUrl: "#",
     twitUrl: "#",
@@ -49,14 +39,16 @@ const OUR__MEMBERS = [
     imgUrl: ava04,
   },
   {
-    name: "Phat Nguyen Van",
-    experience: "Research Assistant",
+    name: "Minh Anh Duong Ngoc",
+    experience: "Market Researcher",
     fbUrl: "#",
     instUrl: "#",
     twitUrl: "#",
     linkedinUrl: "#",
-    imgUrl: ava05,
+    imgUrl: ava03,
   },
+  
+ 
 ];
 
 const OurMembers = () => {

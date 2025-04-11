@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 from typing_extensions import TypedDict
 from langchain_core.messages import ToolMessage
 from langgraph.graph.message import add_messages
-
+from langchain_core.messages import AIMessage, HumanMessage
 
 class State(TypedDict):
     """Đại diện cho cấu trúc trạng thái chứa danh sách tin nhắn.
@@ -115,3 +115,12 @@ def plot_agent_schema(graph):
     except Exception:
         # This requires some extra dependencies and is optional
         return print("Graph could not be displayed.")
+
+def convert_examples_to_messages(examples):
+    messages = []
+    for ex in examples:
+        messages.append(HumanMessage(content=ex["input"]))
+        # Escape dấu { } trong JSON bằng {{ }}
+        escaped_output = ex["output"].replace("{", "{{").replace("}", "}}")
+        messages.append(AIMessage(content=escaped_output))
+    return messages

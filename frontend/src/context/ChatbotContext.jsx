@@ -36,7 +36,7 @@ const ChatbotContextProvider = (props) => {
 
     const getChatbotAnswer = async (prompt) => {
         try {
-            const response = await axiosInstance.post("/agents/chatbot/interact/", {'message': prompt });
+            const response = await axiosInstance.post("/chatbot/interact/", {'message': prompt });
 
             return response.data.response; 
         } catch (error) {

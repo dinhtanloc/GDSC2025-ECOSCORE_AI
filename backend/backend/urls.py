@@ -21,6 +21,9 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
+    path('chatbot/', include('chatbot.urls')),
+    path('stock/', include('stock.urls')),
+    path('data_pipeline/', include('data_pipeline.urls')),
 
     #authentication
     path('ckeditor/', include('ckeditor_uploader.urls')),

@@ -9,7 +9,7 @@ import os
 
 class AdminDocumentRAGTool:
     """
-    Một công cụ để truy xuất các tài liệu liên quan được tải lên bởi người quản trị, đội ngũ công ty, sử dụng phương pháp Tạo Dữ Liệu Tăng Cường Truy Xuất (RAG) với các vector embeddings.
+    Đây sẽ là nơi để các tác nhân hiểu rõ khung đánh giá về ESG theo chuẩn GRI, admin sẽ luôn thêm những thông tin mới nhất về các thay đổi, về môi trường hay những chính sách mới để AI có thể học hỏi và đánh giá
 
     Công cụ này sử dụng một mô hình embedding của OpenAI đã được huấn luyện trước để chuyển đổi các truy vấn thành các biểu diễn dạng vector. Các vector này sau đó được sử dụng để truy vấn cơ sở dữ liệu vector MongoDB nhằm truy xuất top-k tài liệu hoặc mục nhập có liên quan nhất từ một bộ sưu tập cụ thể.
     Công cụ này giúp cho admin có thể cung cấp và bổ sung kiến thức cho chatbot một cách nhanh chóng và gọn lẹ. Dữ liệu trong đây có thể được chia sẻ cho tất cả người dùng.

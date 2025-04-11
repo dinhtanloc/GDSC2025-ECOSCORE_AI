@@ -8,14 +8,14 @@ memory:
 
 
 admindata:
-  doc_dir: "src/frontend/public/media/documents/admin"
+  doc_dir: "frontend/public/media/documents/admin"
   chunk_size: 500
   chunk_overlap: 100
   db_name: "GDSC"
   collection_name: "rag-admin"
 
 userdata:
-  doc_dir: "src/frontend/public/media/documents"
+  doc_dir: "frontend/public/media/documents"
   chunk_size: 500
   chunk_overlap: 100
   db_name: "GDSC"

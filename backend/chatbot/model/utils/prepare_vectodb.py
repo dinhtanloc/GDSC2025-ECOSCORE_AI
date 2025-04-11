@@ -9,7 +9,7 @@ os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
 from PIL import Image
 import pytesseract
 
-with open(here("config/tools_config.yml")) as cfg:
+with open(here("configs/tools_config.yml")) as cfg:
     app_config = yaml.load(cfg, Loader=yaml.FullLoader)
 
 CHUNK_SIZE = app_config["document_rag_pdf"]["chunk_size"]
@@ -66,6 +66,7 @@ class PrepareVectorDB:
         self.mongodb_uri = mongodb_uri
         self.db_name = db_name
         self.collection_name = collection_name
+        
 
         try:
             self.client = pymongo.MongoClient(self.mongodb_uri)
@@ -123,6 +124,7 @@ class PrepareVectorDB:
         try:
             self.collection.insert_one(document)
         except Exception as e:
+            print('1')
             print(f"Lỗi khi lưu document vào MongoDB: {e}")
 
         print("Hoàn thành nhúng và phản hồi vào MongoDB.")
@@ -148,7 +150,7 @@ class PrepareVectorDB:
             try:
                 self.collection.insert_one(document)
             except Exception as e:
-                print(f"Lỗi khi lưu document vào MongoDB: {e}")
+                print(f"Lỗi khi lưu document vào MongoDB2: {e}")
             try:
                 os.remove(self.path_maker(file_name, self.doc_dir))
                 print(f"Đã xóa tệp {file_name} khỏi thư mục.")
@@ -207,7 +209,7 @@ class PrepareVectorDB:
                 try:
                     self.collection.insert_one(document)
                 except Exception as e:
-                    print(f"Lỗi khi lưu document vào MongoDB: {e}")
+                    print(f"Lỗi khi lưu document vào MongoDB3: {e}")
                     continue
 
             print(f"Hoàn thành nhúng và lưu tệp {file_name} vào MongoDB.")

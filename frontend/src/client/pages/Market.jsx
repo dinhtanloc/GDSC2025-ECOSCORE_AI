@@ -252,7 +252,7 @@ const Market = () => {
                         </Box>
                        
                         <Box
-                            gridColumn="span 2"
+                            gridColumn="span "
                             gridRow="span 1"
                             backgroundColor={"#fff"}
                             // ref={boxRef}
@@ -279,7 +279,7 @@ const Market = () => {
                                 transition: 'all 0.3s ease', 
                             }}
                             >
-                            Prediction
+                            Create
                             </Button>
 
                         </Box>

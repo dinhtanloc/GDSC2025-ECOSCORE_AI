@@ -4,7 +4,7 @@ from django.urls import path
 
 
 router = DefaultRouter()
-router.register(r'chatbot', views.ChatbotViewSet, basename='chatbot')
+router.register(r'', views.ChatbotViewSet, basename='chatbot')
 
 urlpatterns = router.urls
 

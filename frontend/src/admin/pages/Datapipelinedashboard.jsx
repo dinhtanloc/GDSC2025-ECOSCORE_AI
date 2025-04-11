@@ -1,11 +1,6 @@
 import React from "react";
-import useData from "@context/dataContext";
-import { Box, Typography } from "@mui/material";
-import DateStockePicker from "@admin/components/UI/DateStockePicker";
-// import ModelPerformance from "@admin/components/UI/ModelPerformance";
-import { DotLoader } from "react-spinners";
-import '@admin/styles/predictions.css';
-// import QuoteLIneChart from '@admin/components/UI/QuoteLIneChart';
+import useAxios from "@utils/useAxios";
+
 import { useTheme } from "@mui/material";
 import { tokens } from "@theme";
 import { useState, useEffect} from "react";
@@ -16,12 +11,13 @@ export default function Datapipelinedashboard() {
   const [tickers, setTickers] = useState("");
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+  const datapipeline = useAxios();
 
   const handleRunETL = async () => {
     setLoading(true);
     setStatus(null);
     try {
-      const response = await axios.post("http://localhost:8000/api/etl/", {
+      const response = await datapipeline.post("data_pipeline/etl/", {
         tickers: tickers.split(",").map((s) => s.trim()),
       });
       setStatus({ success: true, message: response.data.message });

@@ -28,6 +28,7 @@ class LoadProjectConfig:
         #chatbot database settings
         self.postgrest_dbms = os.getenv('POSTGRESQL_DBMS_KEY')
         self.mongodb_uri = os.getenv('MONGODB_URL')
+        self.mongodb_name = os.getenv('MONGODB_NAME')
 
         self.openai =os.getenv("OPEN_API_KEY")
         self.tavily = os.getenv("TAVILY_API_KEY")

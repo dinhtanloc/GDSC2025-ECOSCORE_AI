@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'accounts',
     'chatbot',
     'data_pipeline',
+    'stock',
 
     # Third Party
     'channels',
@@ -116,7 +117,7 @@ DATABASES = {
         'NAME': PROJECT_CFG.dbname,
         'USER': PROJECT_CFG.dbuser,
         'PASSWORD': PROJECT_CFG.dbpassword,
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': PROJECT_CFG.dbport,
     }
 }

@@ -46,7 +46,7 @@ const Chatbot = () => {
             formData.append('pdf_file', selectedFile);
 
             try {
-                const res = await use.post('/agents/chatbot/upload/pdf/', formData);
+                const res = await use.post('/chatbot/upload/pdf/', formData);
                 setFileUrl(res.data.file_url);
             } catch (error) {
                 console.error(error);

@@ -95,7 +95,7 @@ const Layout = () => {
           style={{
             width: '100vw',
             height: '100vh',
-            background: `linear-gradient(rgba(0, 13, 107, 0.5), rgba(0, 13, 107, 0.5)), url("${backgroundImage}")`,
+            background: `linear-gradient(rgba(0, 107, 64, 0.5), rgba(0, 107, 30, 0.5)), url("${backgroundImage}")`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',

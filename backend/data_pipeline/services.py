@@ -3,7 +3,7 @@ from .extract.news_crawler import BaoChinhPhuScraper
 from .extract.social_media import ArticleScraper
 from .extract.annual_report import CafefPDFScraper
 from .load.postgres_loader import PostgresLoader
-from langchain.document_loaders import PyPDFLoader
+from langchain_community.document_loaders import PyPDFLoader
 import os
 import pandas as pd
 from .load.mongo_loader import MongoDBLoader
@@ -46,7 +46,7 @@ class ETLTable:
         for table_name, method_name in extraction_methods.items():
             try:
                 print(f"Extracting {table_name}...")
-                method = getattr(self.extractor, method_name)  # Lấy phương thức động
+                method = getattr(self.extractor, method_name) 
                 extracted_data[table_name] = method()
             except Exception as e:
                 print(f"Failed to extract {table_name}: {e}")
@@ -77,7 +77,7 @@ class ETLTable:
 
 
 class ETLText:
-    def __init__(self, ticket_collection, mongo_uri, db_name):
+    def __init__(self, ticket_collection, mongo_uri, db_name, doc_dir):
         """
         Khởi tạo ETL pipeline cho dữ liệu dạng văn bản.
         :param ticket_collection: Danh sách các mã chứng khoán cần xử lý.
@@ -86,8 +86,9 @@ class ETLText:
         """
         self.ticket_collection = ticket_collection
         self.loader = MongoDBLoader(mongo_uri, db_name)
-        self.embedding_model = PROJECT_CFG.embedding_model  # Sử dụng mô hình embedding từ cấu hình
-
+        self.embedding_model = PROJECT_CFG.embedding_model
+        self.doc_dir = doc_dir
+        self.db = self.loader.client[db_name]
     def extract(self):
         """
         Trích xuất dữ liệu từ các nguồn khác nhau (PDF, News, Social Media).
@@ -120,7 +121,7 @@ class ETLText:
                         "content": post["content"]
                     })
 
-                pdf_scraper = CafefPDFScraper(stock_symbol=ticket, headless=True)
+                pdf_scraper = CafefPDFScraper(stock_symbol=ticket, headless=True, download_folder=self.doc_dir)
                 pdf_scraper.search_disclosures()
                 pdf_scraper.scrape_pdf_links()
                 pdf_scraper.download_all_pdfs()  
@@ -128,6 +129,7 @@ class ETLText:
 
                 pdf_files = [fn for fn in os.listdir(self.doc_dir) if fn.endswith('.pdf')]
                 for file_name in pdf_files:
+                    print(os.path.join(self.doc_dir, file_name))
                     loader = PyPDFLoader(os.path.join(self.doc_dir, file_name))
                     try:
                         docs = loader.load_and_split()
@@ -191,9 +193,9 @@ class ETLText:
 
 
 class FullETLPipeline:
-    def __init__(self, ticket_collection, db_config, mongo_uri, db_name, html_contents):
+    def __init__(self, ticket_collection, db_config, mongo_uri, db_name, html_contents, doc_dir):
         self.etl_table = ETLTable(ticket_collection, db_config)
-        self.etl_text = ETLText(html_contents, mongo_uri, db_name)
+        self.etl_text = ETLText(html_contents, mongo_uri, db_name, doc_dir)
 
     def run_pipeline(self):
         print("Running full ETL pipeline...")

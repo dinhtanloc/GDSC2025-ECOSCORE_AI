@@ -61,6 +61,37 @@ class ChatbotViewSet(viewsets.ViewSet):
 
 
         return Response({'response': bot_response, 'thread_id': chatbot.thread_id})
+    
+
+    @action(detail=False, methods=['post'])
+    def evaluate(self, request):
+        """
+        Handle the chatbot interaction via POST request, process user input, and return a response.
+        """
+        user_message = request.data.get('message', '')
+        user_id = request.user.id
+        print(user_message,user_id)
+        if not user_message:
+            return Response({'error': 'No message provided'}, status=400)
+
+        if user_id not in self.chatbots:
+            thread_id = request.data.get('thread_id', str(uuid4()))
+            # thread_id = str(uuid4())  
+            self.chatbots[user_id] = ChatBot(user_id=user_id, thread_id=thread_id)
+        chatbot = self.chatbots[user_id]
+        # _, updated_chat = ChatBot.respond(chatbot, user_message)
+        # _, updated_chat = ''
+        chatbot_history = []
+        try:
+            print(chatbot_history, user_message, request.user.id, chatbot.thread_id)
+            _, updated_chat = chatbot.ESG_score(chatbot_history, user_message)
+            bot_response = updated_chat[-1][1] if updated_chat else 'No response'
+        except Exception as e:
+            print(e)
+            return Response({'error': f'Error processing request: {str(e)}'}, status=500)
+
+
+        return Response({'response': bot_response, 'thread_id': chatbot.thread_id})
 
     @action(detail=False, methods=['get'])
     def history(self, request):

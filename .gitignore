@@ -1,8 +1,11 @@
 .env
-gdsc2025-564ec12bcb03.json
+gdsc2025-d0c2645d360f.json
 .history
 .DS_Store
 __pycache__
+*.csv
+*.xlsx
+*.pdf
 
 Loc_Dinh.jpg
 Huong_Nguyen.png

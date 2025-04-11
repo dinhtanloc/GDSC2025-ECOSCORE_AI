@@ -19,6 +19,7 @@ class ArticleScraper:
         self.chrome_options.add_argument("--ignore-certificate-errors")
         self.chrome_options.add_argument("--allow-insecure-localhost")
 
+
         user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
         self.chrome_options.add_argument(f"user-agent={user_agent}")
 
@@ -51,88 +52,7 @@ class ArticleScraper:
 
         return comments
 
-    # def scrape_articles(self):
-    #     """
-    #     Thực hiện việc tìm kiếm và thu thập thông tin bài viết liên quan đến symbol.
-    #     """
-    #     try:
-    #         self.driver.get("https://tinhte.vn")
-    #         time.sleep(3)
 
-    #         search_box = self.driver.find_element(By.ID, "gsc-i-id1")
-    #         search_box.clear()
-    #         search_box.send_keys(self.symbol)
-    #         search_box.send_keys(Keys.ENTER)
-    #         time.sleep(5)
-
-    #         article_links = []
-    #         results = self.driver.find_elements(By.CSS_SELECTOR, ".gs-title a.gs-title")
-    #         for item in results:
-    #             url = item.get_attribute('href')
-    #             if url and "thread" in url:
-    #                 article_links.append(url)
-
-    #         article_links = article_links[:5]
-
-    #         for article_url in article_links:
-    #             self.scrape_article(article_url)
-
-    #     finally:
-    #         self.driver.quit()
-
-    # def scrape_article(self, article_url):
-    #     """
-    #     Thực hiện việc tìm kiếm và thu thập thông tin bài viết liên quan đến symbol.
-    #     :return: List of articles with their content and metadata.
-    #     """
-    #     articles = []
-    #     try:
-    #         self.driver.get(article_url)
-    #         time.sleep(3)
-    #         last_height = self.driver.execute_script("return document.body.scrollHeight")
-    #         while True:
-    #             self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    #             time.sleep(2)
-
-    #             new_height = self.driver.execute_script("return document.body.scrollHeight")
-    #             if new_height == last_height:
-    #                 break
-    #             last_height = new_height
-
-    #         try:
-    #             title = self.driver.find_element(By.CSS_SELECTOR, ".p-title-value").text
-    #         except:
-    #             title = "Không thể lấy tiêu đề"
-
-    #         try:
-    #             main_content = self.driver.find_element(By.CSS_SELECTOR, ".message-body").text
-    #         except:
-    #             main_content = "Không thể lấy nội dung bài viết"
-
-    #         comments = self.get_comments(self.driver)
-    #         print(f"Title: {title}")
-    #         print(f"Content: {main_content[:200]}...")
-    #         print(f"Total Comments: {len(comments)}")
-    #         for i, comment in enumerate(comments, 1):
-    #             print(f"{i}. Author: {comment['author']}")
-    #             print(f"   Date: {comment['date']}")
-    #             print(f"   Content: {comment['content'][:100]}...")
-    #         print("-" * 80)
-    #         return {
-    #             "title": title,
-    #             "content": main_content,
-    #             "comments": comments
-    #         }
-
-    #     except Exception as e:
-    #         print(f"Error scraping article: {e}")
-
-    #     finally:
-    #         self.driver.quit()
-
-
-    #     return articles
-    
     def scrape_articles(self):
         """
         Thu thập thông tin từ tất cả các bài viết liên quan đến symbol.
@@ -140,18 +60,14 @@ class ArticleScraper:
         """
         articles = []
         try:
-            # Mở trang bài viết
             self.driver.get("https://tinhte.vn")
             time.sleep(3)
-
-            # Tìm kiếm bài viết liên quan đến symbol
             search_box = self.driver.find_element(By.ID, "gsc-i-id1")
             search_box.clear()
             search_box.send_keys(self.symbol)
             search_box.send_keys(Keys.ENTER)
             time.sleep(5)
 
-            # Lấy danh sách liên kết bài viết
             article_links = []
             results = self.driver.find_elements(By.CSS_SELECTOR, ".gs-title a.gs-title")
             for item in results:
@@ -159,9 +75,8 @@ class ArticleScraper:
                 if url and "thread" in url:
                     article_links.append(url)
 
-            article_links = article_links[:5]  # Giới hạn số bài viết
+            article_links = article_links[:5]  
 
-            # Thu thập thông tin từng bài viết
             for article_url in article_links:
                 article_data = self._scrape_single_article(article_url)
                 if article_data:
@@ -183,11 +98,9 @@ class ArticleScraper:
         :return: Một dictionary chứa thông tin bài viết (tiêu đề, nội dung, bình luận).
         """
         try:
-            # Mở trang bài viết
             self.driver.get(article_url)
             time.sleep(3)
 
-            # Cuộn trang để tải toàn bộ nội dung
             last_height = self.driver.execute_script("return document.body.scrollHeight")
             while True:
                 self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -198,22 +111,18 @@ class ArticleScraper:
                     break
                 last_height = new_height
 
-            # Lấy tiêu đề
             try:
                 title = self.driver.find_element(By.CSS_SELECTOR, ".p-title-value").text
             except:
                 title = "Không thể lấy tiêu đề"
 
-            # Lấy nội dung chính
             try:
                 main_content = self.driver.find_element(By.CSS_SELECTOR, ".message-body").text
             except:
                 main_content = "Không thể lấy nội dung bài viết"
 
-            # Lấy bình luận
             comments = self.get_comments(self.driver)
 
-            # Trả về thông tin bài viết dưới dạng dictionary
             return {
                 "title": title,
                 "content": main_content,
@@ -222,8 +131,7 @@ class ArticleScraper:
 
         except Exception as e:
             print(f"Error scraping article {article_url}: {e}")
-            return None  # Trả về None nếu có lỗi
-
+            return None  
 
 if __name__ == "__main__":
     symbol = "Grab" 

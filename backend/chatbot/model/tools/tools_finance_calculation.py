@@ -1,6 +1,6 @@
 #-----DATA-PREPROCESSING-------
 import pandas as pd
-from vnstock3 import Vnstock
+from vnstock import Vnstock
 from bs4 import BeautifulSoup
 from typing import Literal, List
 import json
@@ -371,6 +371,173 @@ def get_api_balance_sheet(symbols):
     
     return json.dumps(result)
 
+def calculate_esg_score_by_ratio(amount, revenue, threshold=0.01):
+    if revenue == 0 or pd.isna(revenue):
+        return 0
+    ratio = amount / revenue
+    score = min(100, round((ratio / threshold) * 100))
+    return score
+
+
+@tool
+def score_training_cost(financial_df: dict) -> str:
+    """
+    Tính điểm ESG từ chi phí đào tạo dựa trên tỷ lệ chi phí đào tạo / doanh thu
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    revenue = df.get("Doanh thu thuần", 0).values[0]
+    training_cost = df.get("Chi phí đào tạo", 0).values[0]
+    score = calculate_esg_score_by_ratio(training_cost, revenue)
+    return f"Chi phí đào tạo chiếm {training_cost:,} trên {revenue:,} doanh thu. Điểm ESG đào tạo: {score}/100"
+
+
+@tool
+def score_social_cost(financial_df: dict) -> str:
+    """
+    Tính điểm ESG từ chi phí xã hội, từ thiện
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    revenue = df.get("Doanh thu thuần", 0).values[0]
+    social_cost = df.get("Chi phí xã hội", 0).values[0]
+    score = calculate_esg_score_by_ratio(social_cost, revenue)
+    return f"Chi phí xã hội chiếm {social_cost:,} trên {revenue:,} doanh thu. Điểm ESG xã hội: {score}/100"
+
+
+@tool
+def score_environment_cost(financial_df: dict) -> str:
+    """
+    Tính điểm ESG từ chi phí môi trường / năng lượng
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    revenue = df.get("Doanh thu thuần", 0).values[0]
+    env_cost = df.get("Chi phí môi trường", 0).values[0]
+    score = calculate_esg_score_by_ratio(env_cost, revenue)
+    return f"Chi phí môi trường chiếm {env_cost:,} trên {revenue:,} doanh thu. Điểm ESG môi trường: {score}/100"
+
+
+@tool
+def score_rnd_cost(financial_df: dict) -> str:
+    """
+    Tính điểm ESG từ chi phí R&D / nghiên cứu phát triển
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    revenue = df.get("Doanh thu thuần", 0).values[0]
+    rnd_cost = df.get("Chi phí R&D", 0).values[0]
+    score = calculate_esg_score_by_ratio(rnd_cost, revenue)
+    return f"Chi phí R&D chiếm {rnd_cost:,} trên {revenue:,} doanh thu. Điểm ESG R&D: {score}/100"
+
+@tool
+def score_short_term_debt(financial_df: dict) -> str:
+    """
+    Tính điểm quản trị rủi ro tài chính từ tỷ lệ nợ ngắn hạn / tổng tài sản
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    debt = df.get("Nợ ngắn hạn", 0).values[0]
+    assets = df.get("Tổng tài sản", 0).values[0]
+    if assets == 0:
+        return "Không thể tính điểm vì tổng tài sản bằng 0."
+    ratio = debt / assets
+    score = max(0, 100 - int(ratio * 100)) 
+    return f"Tỷ lệ nợ ngắn hạn: {ratio:.2%}. Điểm quản trị rủi ro: {score}/100"
+
+@tool
+def score_net_profit_margin(financial_df: dict) -> str:
+    """
+    Đánh giá hiệu quả sinh lời
+    Args:
+        financial_df: DataFrame chứa thông tin tài chính của doanh nghiệp.
+    """
+    df = pd.DataFrame([financial_df])
+    net_profit = df.get("Lợi nhuận sau thuế", 0).values[0]
+    revenue = df.get("Doanh thu thuần", 0).values[0]
+    if revenue == 0:
+        return "Không có doanh thu để tính biên lợi nhuận."
+    margin = net_profit / revenue
+    score = min(100, round((margin / 0.05) * 100)) 
+    return f"Tỷ suất lợi nhuận: {margin:.2%}. Điểm hiệu quả tài chính: {score}/100"
+
+
+@tool
+def score_esg_report(symbol: str) -> str:
+    """
+    Tính toán tổng điểm ESG của doanh nghiệp dựa trên các yếu tố đào tạo, xã hội, môi trường, R&D, rủi ro tài chính, hiệu quả sinh lời và mức độ tập trung cổ đông.
+
+    Args:
+        symbol: Mã cổ phiếu doanh nghiệp
+
+    Returns:
+        Báo cáo ESG dạng văn bản chi tiết theo từng phần, kèm tổng điểm (trung bình các phần).
+    """
+    results = []
+    total_score = 0
+    count = 0
+
+    try:
+        # ---- 1. Income Statement: đào tạo, xã hội, môi trường, R&D, biên lợi nhuận
+        income_data = json.loads(get_api_income_statement(symbol))
+        if isinstance(income_data, list) and income_data:
+            latest_income = income_data[0]
+            for scoring_tool in [
+                score_training_cost, 
+                score_social_cost, 
+                score_environment_cost, 
+                score_rnd_cost, 
+                score_net_profit_margin
+            ]:
+                explanation = scoring_tool(latest_income)
+                results.append(explanation)
+                score = extract_score(explanation)
+                if score is not None:
+                    total_score += score
+                    count += 1
+
+        # ---- 2. Balance Sheet: nợ ngắn hạn / tài sản
+        balance_data = json.loads(get_api_balance_sheet(symbol))
+        if isinstance(balance_data, list) and balance_data:
+            latest_balance = balance_data[0]
+            explanation = score_short_term_debt(latest_balance)
+            results.append(explanation)
+            score = extract_score(explanation)
+            if score is not None:
+                total_score += score
+                count += 1
+
+        # ---- 3. Company Info: phân tán cổ đông
+        results.append(explanation)
+        score = extract_score(explanation)
+        if score is not None:
+            total_score += score
+            count += 1
+
+    except Exception as e:
+        results.append(f"❌ Lỗi trong quá trình tính toán: {str(e)}")
+
+    avg_score = total_score / count if count > 0 else 0
+    summary = f"\n\n📊 Tổng điểm ESG trung bình: {round(avg_score, 2)}/100 dựa trên {count} chỉ số."
+
+    return "\n".join(results) + summary
+
+
+def extract_score(text):
+    """Trích xuất điểm số từ chuỗi văn bản"""
+    try:
+        parts = text.split("Điểm")
+        for p in parts:
+            if "/100" in p:
+                return int(p.strip().split("/")[0].split()[-1])
+    except:
+        return None
+
 
 tools = [
     calculate_utility,
@@ -388,6 +555,13 @@ tools = [
     get_api_balance_sheet,
     predict_future_prices,
     portfolio_optimize,
+    score_training_cost,
+    score_social_cost,
+    score_environment_cost,
+    score_rnd_cost,
+    score_short_term_debt,
+    score_net_profit_margin,
+    
 ]
 
 

@@ -16,11 +16,8 @@ from chatbot.model.config.load_tools_config import TOOLS_CFG
 
 class SQLAgent:
     """
-    Một công cụ để tương tác với cơ sở dữ liệu SQL liên quan tình hình kinh doanh của công ty được niêm yết, những sự kiện diễn ra gần đây cũng như một loạt thông tin bổ ích khác bằng cách sử dụng LLM (Mô hình Ngôn ngữ) để tạo và thực thi các truy vấn SQL.
-
-    Công cụ này cho phép người dùng đặt các câu hỏi liên quan tình hình kinh doanh của công ty được niêm yết, những sự kiện diễn ra gần đây cũng như một loạt thông tin bổ ích khác, mà sau đó được chuyển đổi thành các truy vấn SQL bởi một mô hình ngôn ngữ.
-    Các truy vấn SQL được thực thi trên cơ sở dữ liệu SQLite được cung cấp, và kết quả được xử lý bởi mô hình ngôn ngữ để
-    tạo ra câu trả lời cuối cùng cho người dùng.
+    Lớp này đại diện cho một tác nhân SQL, sử dụng mô hình ngôn ngữ để tạo và thực thi các truy vấn SQL trên cơ sở dữ liệu. Đây là nơi để lấy toàn bộ thông tin về hoạt động của doanh nghiệp, tình hình tài chính trong những năm gần đây, thực hiện các chỉ số ESG của doanh nghiệp, từ đó đưa ra những phân tích và dự đoán về tình hình hoạt động của doanh nghiệp trong tương lai. Chúng ta sẽ đánh giá theo chuẩn GRI, tác nhân này có nhiệm vụ chính phải đánh giá được tình hình công ty thông qua khía cạnh kinh doanh, hoạt động tài chính, và đánh giá những hoạt động của công ty đến với môi trường, xã hội và quản trị. 
+    Nó sử dụng một mô hình ngôn ngữ để tạo ra các truy vấn SQL và sau đó thực thi chúng trên cơ sở dữ liệu SQL. Kết quả từ cơ sở dữ liệu sẽ được sử dụng để trả lời các câu hỏi của người dùng.
 
     Các thuộc tính:
         sql_agent_llm (ChatOpenAI): Một phiên bản của mô hình ngôn ngữ ChatOpenAI được sử dụng để tạo và xử lý các truy vấn SQL.
