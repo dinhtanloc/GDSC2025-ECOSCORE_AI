@@ -1,6 +1,8 @@
 # EXcore AI: Nền tảng xây dựng báo cáo ESG và tư vấn phát triển dựa trên mục tiêu bền vững"
 ## Introduction
 ![The project's web diagram and accompanying technologies.](images/project.png)
+
+
 Sản phẩm này được dùng để tham gia cuộc thi Google Development Hackathon năm 2025, của nhóm Chúng tôi là những kẻ ngốc. Đây là sản phẩm MVP nên sẽ có những phần chưa hoàn thiện như trong Proposal, mong ban tổ chức và ban giám khảo có thể bỏ qua
 ## install
 Sau đây là hướng dẫn chi tiết thực hiện và chạy dự án
