@@ -2,6 +2,7 @@ import os
 import yaml
 from pyprojroot import here
 from backend.settings import PROJECT_CFG
+from langchain_openai import OpenAIEmbeddings
 
 
 
@@ -15,6 +16,12 @@ class LoadToolsConfig:
         os.environ['OPENAI_API_KEY'] = PROJECT_CFG.openai
         os.environ['TAVILY_API_KEY'] = PROJECT_CFG.tavily
         self.stock_db = PROJECT_CFG.postgrest_dbms
+        self.embedding_model = OpenAIEmbeddings(model="text-embedding-3-large",
+                                                # With the `text-embedding-3` class
+                                                # of models, you can specify the size
+                                                # of the embeddings you want returned.
+                                                # dimensions=1024
+                                            )
 
 
         # Primary agent

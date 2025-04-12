@@ -41,7 +41,7 @@ class UserDocumentRAGTool:
         collection_name (str): Tên của bộ sưu tập trong cơ sở dữ liệu vector chứa các tài liệu do người dùng tải lên.
         """
         self.name = "lookup_user_document"
-        self.embedding_model = PROJECT_CFG.embedding_model
+        self.embedding_model = TOOLS_CFG.embedding_model
         self.db_name=db_name
         self.mongodb_uri=mongodb_uri
         self.k = k
@@ -67,8 +67,7 @@ class UserDocumentRAGTool:
         list: Danh sách các tài liệu phù hợp.
         """
         # embedding_model = OpenAIEmbeddings(model=self.embedding_model)
-        query_vector = self.embedding_model.encode(query).tolist()
-
+        query_vector = self.embedding_model.embed_query(query)
         if query_vector is None:
             return "Invalid query or embedding generation failed."
 

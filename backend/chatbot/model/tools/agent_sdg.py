@@ -119,7 +119,7 @@ def query_sdg_logic(ques: str) -> str:
         llm_temperature=TOOLS_CFG.funcagent_llm_temperature,
         tools=tools
     )
-    ai_msg = agent.chain.invoke(ques)
+    ai_msg = agent.chain.invoke({"query": ques})
     messages.append(ai_msg)
     for tool_call in ai_msg.tool_calls:
         print(tool_call)

@@ -12,11 +12,11 @@ admindata:
   chunk_size: 500
   chunk_overlap: 100
   db_name: "GDSC"
-  collection_name: "rag-admin"
+  collection_name: "news"
 
 userdata:
   doc_dir: "frontend/public/media/documents"
   chunk_size: 500
   chunk_overlap: 100
   db_name: "GDSC"
-  collection_name: "rag-docs"
+  collection_name: "pdf_report"

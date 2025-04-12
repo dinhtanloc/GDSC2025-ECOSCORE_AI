@@ -5,37 +5,6 @@ import ThemeContext from "@context/ThemeContext";
 const Details = ({ details }) => {
   const { darkMode } = useContext(ThemeContext);
 
-  // Dữ liệu giả định
-  const detailsData = [
-    {
-      name: "Environment",
-      value: 82,
-      details: [
-        { subCategory: "Emissions", score: 72 },
-        { subCategory: "Resource Use", score: 86 },
-        { subCategory: "Innovation", score: 83 },
-      ],
-    },
-    {
-      name: "Social",
-      value: 83,
-      details: [
-        { subCategory: "Human Rights", score: 96 },
-        { subCategory: "Product Responsibility", score: 77 },
-        { subCategory: "Workforce", score: 73 },
-        { subCategory: "Community", score: 92 },
-      ],
-    },
-    {
-      name: "Governance",
-      value: 80,
-      details: [
-        { subCategory: "Management", score: 95 },
-        { subCategory: "Shareholders", score: 38 },
-      ],
-    },
-  ];
-
   return (
     <Card>
       <ul
@@ -43,7 +12,7 @@ const Details = ({ details }) => {
           darkMode ? "divide-gray-800" : null
         }`}
       >
-        {detailsData.map((category, index) => (
+        {details.map((category, index) => (
           <li key={index} className="flex flex-col">
             {/* Tiêu đề chính */}
             <div className="flex items-center justify-between mb-2">

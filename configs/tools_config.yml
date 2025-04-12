@@ -5,7 +5,7 @@ primary_agent:
 document_rag_pdf:
   unstructured_docs: src/backend/media/data/docs/doc_pdf
   llm: gpt-4o-mini
-  collection_name: rag-docs
+  collection_name: pdf_report
   db_name: GDSC
   mongodb_URL: "MONGODB_URL"
   embedding_model: text-embedding-3-small
@@ -17,7 +17,7 @@ document_rag_pdf:
 document_rag_pdfAdmin:
   unstructured_docs: src/backend/media/data/docs/doc_pdf
   llm: gpt-4o-mini
-  collection_name: rag-admin
+  collection_name: news
   mongodb_URL: "MONGODB_URL"
   db_name: GDSC
   embedding_model: text-embedding-3-small
@@ -28,7 +28,7 @@ document_rag_pdfAdmin:
 
 chatbot_history:
   llm: gpt-4o-mini
-  collection_name: rag-history
+  collection_name: social_media
   db_name: GDSC
   k: 2
   llm_temperature: 0.0

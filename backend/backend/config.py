@@ -3,7 +3,7 @@ import os
 import yaml
 from dotenv import load_dotenv, find_dotenv
 from pyprojroot import here
-from sentence_transformers import SentenceTransformer
+# from langchain_openai import OpenAIEmbeddings
 
 
 with open(here(f"configs/project_config.yml")) as cfg:
@@ -15,7 +15,7 @@ class LoadProjectConfig:
         # os.environ["LANGCHAIN_TRACING_V2"] = app_config["langsmith"]["tracing"]
         # os.environ["LANGCHAIN_PROJECT"] = app_config["langsmith"]["project_name"]
         self.memory_dir = here(app_config["memory"]["directory"])
-        self.embedding_model = SentenceTransformer("keepitreal/vietnamese-sbert")
+        # self.embedding_model = SentenceTransformer("keepitreal/vietnamese-sbert")
 
 
         #keys project

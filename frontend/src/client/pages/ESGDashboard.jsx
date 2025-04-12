@@ -20,38 +20,13 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CommentList from "@client/components/UI/CommentList";
 import mockComments from "@assets/data/mockComment";
 import LoadingPage from "@client/components/UI/LoadingPage";
-import randomStatValues from "@assets/data/fakeValue";
+import { useMemo } from 'react';
+  
+  const getRandomInRange = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
 
-
-const detailsData = [
-  {
-    name: "Environment",
-    value: 82,
-    details: [
-      { subCategory: "Emissions", score: 72 },
-      { subCategory: "Resource Use", score: 86 },
-      { subCategory: "Innovation", score: 83 },
-    ],
-  },
-  {
-    name: "Social",
-    value: 83,
-    details: [
-      { subCategory: "Human Rights", score: 96 },
-      { subCategory: "Product Responsibility", score: 77 },
-      { subCategory: "Workforce", score: 73 },
-      { subCategory: "Community", score: 92 },
-    ],
-  },
-  {
-    name: "Governance",
-    value: 80,
-    details: [
-      { subCategory: "Management", score: 95 },
-      { subCategory: "Shareholders", score: 38 },
-    ],
-  },
-];
+ 
 
 const ActionButton = ({ onClick, label }) => (
   <Button
@@ -87,6 +62,47 @@ const ESGDashboard = () => {
   const [stockDetails, setStockDetails] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [ESG_report, setESG_report] = useState({});
+  const randomStatValues = useMemo(() => ({
+    positiveImpact: getRandomInRange(500, 800),             // Triệu
+    negativeRatio: getRandomInRange(5, 20),                 // %
+    transparency: getRandomInRange(70_000, 150_000),        // số cổ đông
+    rating: getRandomInRange(1, 5),
+    mockESGScore : getRandomInRange(35, 65)                        // từ 1 đến 5
+  }), []);
+
+  const mockDetailsData = useMemo(() => {
+    const generateSubDetails = (count) => {
+      const categories = [
+        "Emissions", "Resource Use", "Innovation",
+        "Human Rights", "Product Responsibility", "Workforce", "Community",
+        "Management", "Shareholders"
+      ];
+      const selected = categories.sort(() => 0.5 - Math.random()).slice(0, count);
+      return selected.map((subCategory) => ({
+        subCategory,
+        score: getRandomInRange(30, 100),
+      }));
+    };
+  
+    return [
+      {
+        name: "Environment",
+        value: getRandomInRange(60, 90),
+        details: generateSubDetails(getRandomInRange(2, 4)),
+      },
+      {
+        name: "Social",
+        value: getRandomInRange(60, 90),
+        details: generateSubDetails(getRandomInRange(3, 5)),
+      },
+      {
+        name: "Governance",
+        value: getRandomInRange(60, 90),
+        details: generateSubDetails(getRandomInRange(2, 3)),
+      },
+    ];
+  }, []);
+  
 
   useEffect(() => {
     const updateStockDetails = async () => {
@@ -129,11 +145,8 @@ const ESGDashboard = () => {
  
   const fetchESGanswer = async () => {
     try {
-        const res = await stock.post("/chatbot/evaluate/", {
-            symbol: stockSymbol, 
-          });
+        const res = await stock.post("/chatbot/evaluate/", {'message': stockSymbol });
         setESG_report(res.data)
-        setIsLoading(false);
 
     } catch (error) {
         console.error('Có lỗi xảy ra khi truy cập dữ liệu:', error);
@@ -142,17 +155,25 @@ const ESGDashboard = () => {
     
   };
   fetchESGanswer();
+  
   const handleResize = () => {
     if (boxRef.current) {
         setChartWidth(boxRef.current.offsetWidth);
     }
   };
 
+  const timer = setTimeout(() => {
+    setIsLoading(false);
+  }, 5000); 
+
   handleResize();
 
   window.addEventListener('resize', handleResize);
 
-  return () => window.removeEventListener('resize', handleResize);
+  return () => {
+    clearTimeout(timer);
+    window.removeEventListener('resize', handleResize);
+  };
   
 }, [stockData,stockSymbol, name]);
 
@@ -213,53 +234,15 @@ if (isLoading) {
         <div className="bg-white rounded-xl shadow col-span-10 row-span-1 h-[300px] overflow-hidden">
         <ResponsiveContainer width="100%" height="100%">
           <ESGBarChart
-            esgScore={37}
-            data={[
-              {
-                category: "Environmental",
-                company: 61,
-                industryMean: 33,
-                industryBest: 95,
-              },
-              {
-                category: "Social",
-                company: 24,
-                industryMean: 29,
-                industryBest: 89,
-              },
-              {
-                category: "Governance & Economic",
-                company: 29,
-                industryMean: 32,
-                industryBest: 89,
-              },
-            ]}
+            esgScore={randomStatValues.mockESGScore}
+            data={mockDetailsData}
           />
           </ResponsiveContainer>
         </div>
         <div className="bg-white rounded-xl shadow col-span-3 row-span-1">
           <ESGBarChart
-            esgScore={37}
-            data={[
-              {
-                category: "Environmental",
-                company: 61,
-                industryMean: 33,
-                industryBest: 95,
-              },
-              {
-                category: "Social",
-                company: 24,
-                industryMean: 29,
-                industryBest: 89,
-              },
-              {
-                category: "Governance & Economic",
-                company: 29,
-                industryMean: 32,
-                industryBest: 89,
-              },
-            ]}
+            esgScore={randomStatValues.mockESGScore}
+            data={mockDetailsData}
           />
         </div>
         <div className="bg-white rounded-xl shadow col-span-7">
@@ -281,7 +264,7 @@ if (isLoading) {
 
       {/* Details */}
       <div className="row-span-2 xl:row-span-3">
-        <Details details={detailsData} />
+        <Details details={mockDetailsData} />
       </div>
 
       <div className="bg-white rounded-xl shadow col-span-2 row-span-2">

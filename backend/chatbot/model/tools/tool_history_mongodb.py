@@ -46,6 +46,7 @@ class HistoryMongoDBAgent:
         self.name='chat_with_history'
         self.history_agent_llm = ChatOpenAI(
             model=llm, temperature=llm_temperature)
+        self.embedding_model = TOOLS_CFG.embedding_model
         self.chat_history = ChatMessageHistory()
         self.user_id=user_id
         self.system_role = """Given the following chat history and user question, generate a response.\n
@@ -87,7 +88,7 @@ class HistoryMongoDBAgent:
     def save_to_mongodb(self, message: str, is_user_message: bool):
         """Lưu tin nhắn vào MongoDB."""
         try:
-            vector = self.embedding_model.encode(message).tolist()
+            vector = self.embedding_model.embed_query(message)
             document = {
                 "user_id": self.user_id,
                 "thread_id": self.thread_id,
@@ -102,7 +103,7 @@ class HistoryMongoDBAgent:
 
     def similarity_search(self, query: str, k: int = None):
         """Thực hiện tìm kiếm tin nhắn tương tự bằng cách sử dụng truy vấn từ người dùng."""
-        query_vector = self.embedding_model.encode(query).tolist()
+        query_vector = self.embedding_model.embed_query(query)
 
         if query_vector is None:
             return "Invalid query or embedding generation failed."
