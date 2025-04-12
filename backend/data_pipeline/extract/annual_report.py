@@ -81,7 +81,7 @@ class CafefPDFScraper:
                 response = requests.get(link, timeout=20)
                 file_name = os.path.basename(link.split('?')[0])
                 file_path = os.path.join(self.download_folder, f"{idx:03d}_{file_name}").replace("\\", "/")
-                with open(file_path, "wb") as f:
+                with open(f"../{file_path}", "wb") as f:
                     f.write(response.content)
                 print(f"✅ Đã tải: {file_name}")
             except Exception as e:
