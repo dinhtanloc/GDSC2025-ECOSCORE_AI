@@ -91,8 +91,23 @@ python manage.py makemigrations
 // After you create admin accounts, you can login at http://localhost:8000/admin
 ```
 
+## Hướng dẫn sử dụng tính năng chính EXcore AI
+Trạng thái User
+B1: Đăng ký tài khoản ở Register, sau đó đăng nhập vào dự án
+B2 Click vào Market để xem thông tin của các doanh nghiệp, có thể chọn bằng cách nhấn vào dropdown
+B3: Click vào nút Create và chờ một xíu để tạo ESG Dashboard
+B4: Bấm vào Go to Chatbot và sử dụng
+
+Trạng thái Admin
+B1: Sử dụng cú pháp câu lệnh django, tạo tk superuser
+B2: Sử dụng username và pass để truy cập vào dự án
+B3: Admin có thể thực hiện toàn bộ tính năng user
+B4: Admin bấm vào icon để vào Adminsite
+B5: Nhập ds mã công ty cần cào
+B6: Tải tài liệu, hỏi đáp chatbot ở adminsite, theo dõi hiệu suất tại nút Performance
+
 ## Report
-You can see all information and report here [Report drive](https://drive.google.com/drive/folders/1grdqHzFVNXND2bPqbYF-Ff7zN9umYv5q?usp=drive_link)
+You can see all information and report here [Report drive](https://drive.google.com/drive/u/0/folders/1antuI7bCvdGHNZKqBZVxXQCt1fgFq3hm)
 
 ## Reference
 1. [Loc Dinh CarRetail Web](https://github.com/dinhtanloc/hw_web_development/tree/main)
