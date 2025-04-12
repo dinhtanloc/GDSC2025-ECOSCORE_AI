@@ -18,13 +18,11 @@ import GeographyChart from "@admin/components/UI/GeographyChart";
 import BarChart from "@admin/components/UI/BarChart";
 import StatBox from "@admin/components/UI/StatBox";
 import ProgressCircle from "@admin/components/UI/ProgressCircle";
-// import downloadExcel from "../utils/downloadExcel";
 
 const Dashboard = () => {
 
 
 
-  // window.location.reload()
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 

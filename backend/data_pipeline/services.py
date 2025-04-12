@@ -9,7 +9,7 @@ import pandas as pd
 from .load.mongo_loader import MongoDBLoader
 from backend.config import PROJECT_CFG
 from chatbot.model.config.load_tools_config import TOOLS_CFG
-
+from pyprojroot import here
 class ETLTable:
     def __init__(self, ticket_collection, db_config):
         """
@@ -90,6 +90,20 @@ class ETLText:
         self.embedding_model = TOOLS_CFG.embedding_model
         self.doc_dir = doc_dir
         self.db = self.loader.client[db_name]
+    
+    def path_maker(self, file_name: str, doc_dir):
+        """
+        Tạo một đường dẫn đầy đủ bằng cách nối thư mục và tên tệp.
+
+        Tham số:
+            file_name (str): Tên của tệp.
+            doc_dir (str): Đường dẫn đến thư mục.
+
+        Trả về:
+            str: Đường dẫn đầy đủ của tệp.
+        """
+        return os.path.join(here(doc_dir), file_name)
+    
     def extract(self):
         """
         Trích xuất dữ liệu từ các nguồn khác nhau (PDF, News, Social Media).
@@ -131,7 +145,7 @@ class ETLText:
                 pdf_files = [fn for fn in os.listdir(self.doc_dir) if fn.endswith('.pdf')]
                 for file_name in pdf_files:
                     print(os.path.join(self.doc_dir, file_name))
-                    loader = PyPDFLoader(os.path.join(self.doc_dir, file_name))
+                    loader = PyPDFLoader(f"../{self.path_maker(file_name, self.doc_dir)}" )
                     try:
                         docs = loader.load_and_split()
                     except Exception as e:
@@ -144,6 +158,12 @@ class ETLText:
                             "source": "pdf_report",
                             "content": doc.page_content
                         })
+
+                    try:
+                        os.remove(f"../{self.path_maker(file_name, self.doc_dir)}")
+                        print(f"Đã xóa tệp {file_name} khỏi thư mục.")
+                    except Exception as e:
+                        print(f"Lỗi khi xóa tệp {file_name}: {e}")
 
             except Exception as e:
                 print(f"Failed to extract data for {ticket}: {e}")

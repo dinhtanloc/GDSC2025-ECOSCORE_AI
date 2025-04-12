@@ -20,14 +20,12 @@ const OurFeature = ()=>{
                 </h2>
 
                 <p className="section__description">
-                Most investors in Vietnam lack the foundational knowledge needed to enter the stock market. As a result, they often rely on trusted sources and seek superficial information on platforms like Chat GPT. EXcore AI is designed to be a reliable advisor with extensive training in financial and stock market knowledge. It not only answers financial queries effectively but also pulls data directly from the Vnstock exchange, offering up-to-date and accurate information. Additionally, EXcore AI provides a practical environment for data scientists to test their models with the latest stock data, enhancing their research and experience.
+                Most businesses in Vietnam, especially small and medium-sized enterprises (SMEs), face significant challenges in independently creating comprehensive ESG reports. At the same time, larger corporations invest substantial effort in this process due to the lack of technological integration, making it inefficient and resource-intensive. Similarly, most investors in Vietnam lack the foundational knowledge necessary to participate effectively in the stock market. Consequently, they often depend on trusted sources or superficial information obtained from platforms like Chat GPT.
                 </p>
 
                 <p className="section__description">
                 <br/>
-                In Vietnam, many investors lack the foundational knowledge needed to confidently enter the stock market. As a result, they often rely on established sources and seek out basic information from platforms like Chat GPT. Recognizing this gap, EXcore AI has been developed to serve as a trusted advisor with a vast amount of financial and stock market knowledge.
-                EXcore AI stands out by offering accurate and up-to-date information, thanks to its ability to pull data directly from the Vnstock exchange. This real-time data integration distinguishes EXcore AI from other chatbot platforms, ensuring that users receive the most current and precise information available.
-                Moreover, EXcore AI goes beyond merely providing information. It also offers a practical environment for data scientists to test and validate their models using the latest stock data. This feature not only supports research and development but also enhances the overall user experience by providing a hands-on tool for financial analysis and experimentation. ed in the stock market.
+                EXcore AI addresses these gaps by serving as a reliable advisor with extensive training in financial and stock market expertise. It not only provides accurate answers to financial queries but also directly accesses real-time data from the Vnstock exchange, ensuring users receive up-to-date and precise information. Moreover, EXcore AI offers a practical platform for data scientists to test their models using the latest stock market data, thereby enriching their research capabilities and enhancing their overall experience.
                 </p>
 
                 <div className=" d-flex align-items-center gap-3 mt-4">

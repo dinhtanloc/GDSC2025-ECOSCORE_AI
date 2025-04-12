@@ -1260,3 +1260,24 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+
+export const data01 = [
+  { name: 'Environment', value: 82 },
+  { name: 'Social', value: 83 },
+  { name: 'Governance', value: 80 },
+];
+
+export const data02 = [
+  { name: 'Emissions', value: 72 },
+  { name: 'Resource Use', value: 86 },
+  { name: 'Innovation', value: 83 },
+
+  { name: 'Human Rights', value: 96 },
+  { name: 'Product Responsibility', value: 77 },
+  { name: 'Workforce', value: 73 },
+  { name: 'Community', value: 92 },
+
+  { name: 'Management', value: 95 },
+  { name: 'Shareholders', value: 38 },
+];

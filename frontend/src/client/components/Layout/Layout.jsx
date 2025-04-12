@@ -8,8 +8,6 @@ import axios from 'axios';
 import backgroundImage from '/media/background_login.png'; 
 import "@client/styles/page.css"
 import AdminPage from "@admin/AdminPage"
-// import Topbar from "../global/Topbar"
-// import ProSidebar from "../global/ProSidebar"
 import Header from "@client/components/Header/Header";
 import Footer from "@client/components/Footer/Footer"
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -17,7 +15,6 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
 const Layout = () => {
-  // const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
   const location = useLocation();
   const { logined } = useContext(AuthContext);
@@ -26,16 +23,13 @@ const Layout = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const api = useAxios();
-  console.log("logined");
 
   useEffect(() => {
-    console.log("check");
     const fetchUser = async () => {
       try {
         const res = await api.get("accounts/user/current-user/");
         setCurrentUser(true);
         const name_login = res.data.response.username;
-        console.log(res);
         setName(name_login)
       } catch (error) {
         setCurrentUser(false);
@@ -51,7 +45,6 @@ const Layout = () => {
         const profile = res.data;
         var imgUrl = profile.image
         setImage(imgUrl)
-        // setName(profile)
       } catch (error) {
         setCurrentUser(false);
         console.error('Có lỗi xảy ra khi truy cập dữ liệu:', error);
@@ -59,20 +52,10 @@ const Layout = () => {
       }
     };
 
-    // const fetchStaffChecking = async () => {
-    //   try {
-    //       const response = await api.get('accounts/user/staff/');
-    //       // setUserProfile(response.data);
-    //       checkStaff(response.data.is_staff);
-          
-    //   } catch (error) {
-    //       console.error('Error fetching user profile:', error);
-    //   }
-  // };
+ 
 
     fetchUser();
     fetchProfile();
-    // fetchStaffChecking();
   }, []);
 
   const handleSearch = (term) => {

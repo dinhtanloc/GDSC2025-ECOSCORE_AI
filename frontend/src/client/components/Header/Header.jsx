@@ -96,9 +96,6 @@ const Header = ({ onSearch }) => {
         const res = await api.get("accounts/user/current-user/");
         setCurrentUser(true);
         const name_login = res.data.response.username;
-        console.log("name_login");
-        console.log(name_login);
-        console.log(res);
         setName(name_login);
       } catch (error) {
         setCurrentUser(false);
@@ -122,24 +119,13 @@ const Header = ({ onSearch }) => {
       }
     };
 
-    // const fetchStaffChecking = async () => {
-    //   try {
-    //       const response = await api.get('accounts/user/staff/');
-    //       // setUserProfile(response.data);
-    //       checkStaff(response.data.is_staff);
-          
-    //   } catch (error) {
-    //       console.error('Error fetching user profile:', error);
-    //   }
-  // };
 
     fetchUser();
     fetchProfile();
-    // fetchStaffChecking();
+    // ();
   }, []);
 
   const menuRef = useRef(null);
-  // import img from './default.jpg'
 
   const toggleMenu = () => menuRef.current.classList.toggle("menu__active");
   return (

@@ -6,30 +6,17 @@ import { Link } from "react-router-dom";
 import blogData from "@assets/data/blogData";
 
 const BlogList = () => {
-  // const [blogData, setBlogdata] = useState([]);
   const blog = axios.create({
     baseURL: import.meta.env.VITE_DOMAIN_BACKEND
   });
   useEffect(() => {
     const fetchData = async () => {
-      // try {
-      //     const response = await blog.get('/blogs/');
-      //     setBlogdata(response.data);
-      // } catch (error) {
-      //     console.error("There was an error fetching the data!", error);
-      // }
+   
   };
 
   fetchData();
 }, []);
-//   const filteredBlogs = searchTerm
-//   ? blogData.filter((blog) =>{
-//     const match =blog.title && blog.title.toLowerCase().includes(searchTerm.toLowerCase());
- 
-//     return match;
-//   }
-// )
-// : blogData;
+
   return (
     <>
       {blogData.map((item) => (
