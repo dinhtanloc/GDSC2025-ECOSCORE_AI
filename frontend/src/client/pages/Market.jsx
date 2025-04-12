@@ -16,6 +16,7 @@ import StatBox from '@client/components/UI/StatBox'
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import useAxios from '@utils/useAxios'
 import StockContext from "@context/StockContext";
+import LoadingPage from "@client/components/UI/LoadingPage";
 
 const Market = () => {
     const boxRef = useRef(null);
@@ -26,6 +27,7 @@ const Market = () => {
     const [name, setName]=useState("ACB");
     const navigate = useNavigate();
     const { stockSymbol } = useContext(StockContext);
+    const [isLoading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCompanyInfo = async () => {
@@ -34,6 +36,7 @@ const Market = () => {
                     symbol: stockSymbol, 
                   });
                 setInfo(res.data)
+                setLoading(false);
 
             } catch (error) {
                 console.error('Có lỗi xảy ra khi truy cập dữ liệu:', error);
@@ -58,7 +61,12 @@ const Market = () => {
         
     }, [stockData,stockSymbol, name]);
 
- 
+
+if (isLoading) {
+    return (
+    <LoadingPage/>
+    );
+}
 
 
     return (

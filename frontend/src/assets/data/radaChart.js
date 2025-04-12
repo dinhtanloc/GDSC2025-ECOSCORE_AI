@@ -11,7 +11,7 @@ let phoneData = [
     "Affordable Pricing": 0.30
   },
   {
-    "name": "Ecoscore AI",
+    "name": "EXcore AI",
     "Transparent and accurate data": 0.45,
     "Convenient and time-saving": 0.40,
     "Friendly and Quality": 0.4,

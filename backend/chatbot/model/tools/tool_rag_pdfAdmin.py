@@ -69,7 +69,7 @@ class AdminDocumentRAGTool:
         list: Danh sách các tài liệu phù hợp.
         """
         # embedding_model = OpenAIEmbeddings(model=self.embedding_model)
-        query_vector = self.embedding_model.embed_query (query).tolist()
+        query_vector = self.embedding_model.embed_query(query)
 
         if query_vector is None:
             return "Invalid query or embedding generation failed."

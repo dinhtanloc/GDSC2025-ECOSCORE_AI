@@ -49,7 +49,7 @@ const Footer = () => {
               </h1>
             </div>
             <p className="footer__logo-content">
-            Founded on October 26th, 2022, Ecoscore AI is your go-to platform for expert stock investment advice. With top-tier insights and personalized recommendations, Ecoscore AI helps you invest smartly and confidently. Choose Moketo Gr. for smarter investments today!
+            Founded on October 26th, 2022, EXcore AI is your go-to platform for expert stock investment advice. With top-tier insights and personalized recommendations, EXcore AI helps you invest smartly and confidently. Choose Moketo Gr. for smarter investments today!
             </p>
           </Col>
           <Col lg="2" md="4" sm="6">

@@ -125,25 +125,25 @@ class ETLText:
                 pdf_scraper = CafefPDFScraper(stock_symbol=ticket, headless=True, download_folder=self.doc_dir)
                 pdf_scraper.search_disclosures()
                 pdf_scraper.scrape_pdf_links()
-                pdf_scraper.download_all_pdfs()  
+                # pdf_scraper.download_all_pdfs()  
                 pdf_links = pdf_scraper.pdf_links
 
-                pdf_files = [fn for fn in os.listdir(self.doc_dir) if fn.endswith('.pdf')]
-                for file_name in pdf_files:
-                    print(os.path.join(self.doc_dir, file_name))
-                    loader = PyPDFLoader(os.path.join(self.doc_dir, file_name))
-                    try:
-                        docs = loader.load_and_split()
-                    except Exception as e:
-                        print(f"Lỗi khi tải hoặc chia nhỏ tệp {file_name}: {e}")
-                        continue
+                # pdf_files = [fn for fn in os.listdir(self.doc_dir) if fn.endswith('.pdf')]
+                # for file_name in pdf_files:
+                #     print(os.path.join(self.doc_dir, file_name))
+                #     loader = PyPDFLoader(os.path.join(self.doc_dir, file_name))
+                #     try:
+                #         docs = loader.load_and_split()
+                #     except Exception as e:
+                #         print(f"Lỗi khi tải hoặc chia nhỏ tệp {file_name}: {e}")
+                #         continue
 
-                    for doc in docs:
-                        extracted_data["pdf_report"].append({
-                            "ticker": ticket,
-                            "source": "pdf_report",
-                            "content": doc.page_content
-                        })
+                #     for doc in docs:
+                #         extracted_data["pdf_report"].append({
+                #             "ticker": ticket,
+                #             "source": "pdf_report",
+                #             "content": doc.page_content
+                #         })
 
             except Exception as e:
                 print(f"Failed to extract data for {ticket}: {e}")
@@ -162,7 +162,7 @@ class ETLText:
                 try:
                     content = doc["content"]
                     embedding = self.embedding_model.embed_query(content)
-                    doc["vector"] = embedding.tolist()  
+                    doc["vector"] = embedding 
                 except Exception as e:
                     print(f"Failed to transform document: {e}")
         return extracted_data

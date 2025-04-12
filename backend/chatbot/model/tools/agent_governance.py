@@ -1,7 +1,8 @@
 from langchain_core.tools import tool
 from langchain_community.utilities import SQLDatabase
 from langchain.chains import create_sql_query_chain
-from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_community.tools import QuerySQLDatabaseTool
+
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -31,49 +32,32 @@ class GovernanceAgent:
             model=llm, temperature=llm_temperature)
         self.sql_agent_llm=self.llm.bind_tools(tools)
         self.examples = [
-            {
-                "input": "Bạn hãy đánh giá công ty VNG theo khía cạnh Governance theo chuẩn quốc tế?",
-                "idea": (
-                    "Step 1: Nhận diện yêu cầu là đánh giá ESG - khía cạnh Governance (GRI 205, 206, 207, 419).\n"
-                    "Step 2: Truy xuất dữ liệu báo cáo tài chính như: income statement, balance sheet.\n"
-                    "Step 3: Trích xuất các trường như: 'Lợi nhuận sau thuế', 'Thuế phải trả', 'Chi phí đào tạo', 'Chi phí pháp lý', 'Chi phí hành chính'.\n"
-                    "Step 4: Nếu thiếu thông tin, tìm thêm trên báo chí hoặc mạng xã hội về scandal thuế, kiện tụng, sai phạm tài chính.\n"
-                    "Step 5: Chấm điểm ESG Governance dựa trên: minh bạch tài chính, hiệu quả thuế, cam kết đào tạo & quản trị nội bộ.\n"
-                    "Step 6: Trả kết quả dưới dạng JSON gồm các trường: 'ESG Governance Score', 'Tax Transparency', 'Training Investment', 'Net Profit'."
-                ),
-                "output": (
-                    "Bảng đánh giá ESG - Governance cho công ty VNG:\n"
-                    "{\n"
-                    "  'ESG Governance Score': 80,\n"
-                    "  'Tax Transparency': 'Đóng thuế đầy đủ, không có khiếu kiện tài chính',\n"
-                    "  'Training Investment': 'Đầu tư 3 tỷ vào đào tạo nội bộ năm 2023',\n"
-                    "  'Net Profit': 'Lợi nhuận sau thuế năm 2023 đạt 120 tỷ VND'\n"
-                    "}"
-                )
-            },
-            {
-                "input": "MWG có đảm bảo quản trị tốt không?",
-                "idea": (
-                    "Step 1: Truy xuất bảng cân đối kế toán và báo cáo thu nhập của MWG.\n"
-                    "Step 2: Kiểm tra xem có báo cáo nào liên quan đến lỗ/lãi bất thường, thuế chưa đóng.\n"
-                    "Step 3: Kiểm tra khoản mục chi cho đào tạo, quản trị nội bộ, và khả năng thanh toán nợ.\n"
-                    "Step 4: Nếu có scandal về quản trị, trích dẫn từ báo chí chính thống (cafef.vn, congan.com.vn).\n"
-                    "Step 5: Đưa ra đánh giá và điểm ESG Governance trên thang điểm 100."
-                ),
-                "output": (
-                    "MWG có hệ thống quản trị minh bạch, đóng thuế đúng hạn, không có khiếu kiện lớn.\n"
-                    "Điểm ESG Governance: 92/100"
-                )
-            }
+            HumanMessage(content="Bạn hãy đánh giá công ty VNG theo khía cạnh Governance theo chuẩn quốc tế?"),
+            AIMessage(content=(
+                "Bảng đánh giá ESG - Governance cho công ty VNG:\n"
+                "{\n"
+                "  \"ESG Governance Score\": 80,\n"
+                "  \"Tax Transparency\": \"Đóng thuế đầy đủ, không có khiếu kiện tài chính\",\n"
+                "  \"Training Investment\": \"Đầu tư 3 tỷ vào đào tạo nội bộ năm 2023\",\n"
+                "  \"Net Profit\": \"Lợi nhuận sau thuế năm 2023 đạt 120 tỷ VND\"\n"
+                "}"
+            )),
+
+            HumanMessage(content="MWG có đảm bảo quản trị tốt không?"),
+            AIMessage(content=(
+                "MWG có hệ thống quản trị minh bạch, đóng thuế đúng hạn, không có khiếu kiện lớn.\n"
+                "Điểm ESG Governance: 92/100"
+            )),
         ]
-        few_shot_messages  = convert_examples_to_messages(self.examples)
-        self.system_role = f"""Bạn là một chuyên gia chơi chứng khoán trong lĩnh vực kinh tế đầu tư tại thị trường chứng khoán Việt Nam. Hôm nay là ngày {datetime.now().strftime('%Y-%m-%d')}. Sử dụng các tool được cung cấp như một ví dụ để đưa ra những lời khuyên hữu ích để người chơi mới tại Việt Nam lựa chọn và tối ưu hóa danh mục đầu tư, đầu tư chứng khoán thành công
+        
+        # self  = convert_examples_to_messages(self.examples)
+        self.system_role = f"""Bạn là một chuyên gia phân tích và xây dựng báo cáo ESG chuẩn GRI. Hôm nay là ngày {datetime.now().strftime('%Y-%m-%d')}. Sử dụng các tool được cung cấp để tính toán các chỉ số một cách thành công và trả được chỉ số theo trụ cột G, Governance.
         """
 
         few_shot_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", self.system_role),
-                *few_shot_messages ,
+                # *self.examples,
                 ("human", "{query}"),
             ]
         )
@@ -94,7 +78,7 @@ def query_governance_logic(ques: str) -> str:
         llm_temperature=TOOLS_CFG.funcagent_llm_temperature,
         tools=tools
     )
-    ai_msg = agent.chain.invoke({"query": ques})
+    ai_msg = agent.chain.invoke(ques)
     messages.append(ai_msg)
     for tool_call in ai_msg.tool_calls:
         print(tool_call)

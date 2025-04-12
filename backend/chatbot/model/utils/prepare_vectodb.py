@@ -194,7 +194,7 @@ class PrepareVectorDB:
 
             for doc_split in doc_splits:
                 try:
-                    vector = self.embedding_model.embed_query (doc_split.page_content).tolist()
+                    vector = self.embedding_model.embed_query(doc_split.page_content)
                 except Exception as e:
                     print(f"Lỗi khi nhúng đoạn văn bản trong tệp {file_name}: {e}")
                     continue

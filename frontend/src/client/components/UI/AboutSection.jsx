@@ -18,9 +18,9 @@ const AboutSection = ({ aboutClass }) => {
           <Col lg="6" md="6">
             <div className="about__section-content">
               <h4 className="section__subtitle">About Us</h4>
-              <h2 className="section__title">Welcome to Ecoscore AI</h2>
+              <h2 className="section__title">Welcome to EXcore AI</h2>
               <p className="section__description">
-              Ecoscore AI is a platform that quickly and accurately evaluates ESG metrics for businesses based on a wide range of verified and reliable data sources. The platform enables government organizations, non-profits, users, and even the businesses themselves to effectively assess ESG scores, precisely track activities related to sustainable consumption, and detect fraudulent behaviors in the pursuit of SDG goals.
+              EXcore AI is a platform that quickly and accurately evaluates ESG metrics for businesses based on a wide range of verified and reliable data sources. The platform enables government organizations, non-profits, users, and even the businesses themselves to effectively assess ESG scores, precisely track activities related to sustainable consumption, and detect fraudulent behaviors in the pursuit of SDG goals.
               </p>
 
               <div className="about__section-item d-flex align-items-center">

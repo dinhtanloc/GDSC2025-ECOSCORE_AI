@@ -63,11 +63,11 @@ const ESGDashboard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ESG_report, setESG_report] = useState({});
   const randomStatValues = useMemo(() => ({
-    positiveImpact: getRandomInRange(500, 800),             // Triệu
-    negativeRatio: getRandomInRange(5, 20),                 // %
-    transparency: getRandomInRange(70_000, 150_000),        // số cổ đông
+    positiveImpact: getRandomInRange(40, 90),            
+    negativeRatio: getRandomInRange(5, 20),               
+    transparency: getRandomInRange(0.5, 1),        
     rating: getRandomInRange(1, 5),
-    mockESGScore : getRandomInRange(35, 65)                        // từ 1 đến 5
+    mockESGScore : getRandomInRange(35, 65)                       
   }), []);
 
   const mockDetailsData = useMemo(() => {
@@ -145,7 +145,7 @@ const ESGDashboard = () => {
  
   const fetchESGanswer = async () => {
     try {
-        const res = await stock.post("/chatbot/evaluate/", {'message': stockSymbol });
+        const res = await stock.post("/chatbot/evaluate/", {'message': `Xin chào, bạn hãy đánh giá ESG score của mã ${stockSymbol}` });
         setESG_report(res.data)
 
     } catch (error) {
@@ -164,7 +164,7 @@ const ESGDashboard = () => {
 
   const timer = setTimeout(() => {
     setIsLoading(false);
-  }, 5000); 
+  }, 15000); 
 
   handleResize();
 
@@ -190,17 +190,17 @@ if (isLoading) {
         darkMode ? "bg-gray-900 text-gray-300" : "bg-neutral-100"
       }`}
     >
-      <div className="col-span-3 grid grid-cols-4 gap-4">
-        <Box backgroundColor="#FFFFCC" display="flex" alignItems="center" justifyContent="center">
+      <div className="col-span-3 row-span-1 grid grid-cols-4 gap-4 p-0">
+        <Box backgroundColor="#ffff" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={`${randomStatValues.positiveImpact} triệu`}
+            title={`${randomStatValues.positiveImpact}%`}
             subtitle="Positive Impact"
             progress={randomStatValues.positiveImpact / 1000}
             increase={`+${randomStatValues.negativeRatio}%`}
             icon={<MonetizationOnIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
-        <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
+        <Box backgroundColor="#ffff" display="flex" alignItems="center" justifyContent="center">
           <StatBox
             title={`${randomStatValues.negativeRatio}%`}
             subtitle="Negative Ratio"
@@ -209,7 +209,7 @@ if (isLoading) {
             icon={<PointOfSaleIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
-        <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
+        <Box backgroundColor="#ffff" display="flex" alignItems="center" justifyContent="center">
           <StatBox
             title={randomStatValues.transparency.toLocaleString("de-DE")}
             subtitle="Transparent Data"
@@ -218,9 +218,9 @@ if (isLoading) {
             icon={<PointOfSaleIcon sx={{ color: "#4951a3", fontSize: "26px" }} />}
           />
         </Box>
-        <Box backgroundColor="#f0f3f7" display="flex" alignItems="center" justifyContent="center">
+        <Box backgroundColor="#ffff" display="flex" alignItems="center" justifyContent="center">
           <StatBox
-            title={`${randomStatValues.rating}/5`}
+            title={`${randomStatValues.rating}`}
             subtitle="Rating"
             progress={randomStatValues.rating / 5}
             increase={`+${Math.round(randomStatValues.rating / 5 * 100)}%`}
@@ -256,7 +256,7 @@ if (isLoading) {
         <Overview
           symbol={stockSymbol}
           price={200}
-          change={13 / 12}
+          change={35 / 12}
           changePercent={"5%"}
           currency={'VND'}
         />

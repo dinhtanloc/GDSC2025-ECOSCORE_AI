@@ -1,7 +1,8 @@
 from langchain_core.tools import tool
 from langchain_community.utilities import SQLDatabase
 from langchain.chains import create_sql_query_chain
-from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_community.tools import QuerySQLDatabaseTool
+
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -31,45 +32,32 @@ class SocialAgent:
             model=llm, temperature=llm_temperature)
         self.sql_agent_llm=self.llm.bind_tools(tools)
         self.examples = [
-            {
-                "input": "Đánh giá khía cạnh Social của công ty VNG theo chuẩn quốc tế GRI",
-                "idea": (
-                    "Step 1: Nhận diện mục tiêu là đánh giá ESG - Khía cạnh Social (GRI 401–409, GRI 413).\n"
-                    "Step 2: Tìm kiếm thông tin về hoạt động xã hội, từ thiện, trách nhiệm cộng đồng của VNG.\n"
-                    "Step 3: Nếu không có báo cáo chính thức, tìm trên nguồn báo chí (cafef, vnexpress) hoặc các diễn đàn người dùng (tinhte.vn, facebook).\n"
-                    "Step 4: Nếu có công cụ phân tích văn bản, áp dụng sentiment analysis để đánh giá độ tích cực của nội dung.\n"
-                    "Step 5: Trả về báo cáo có điểm ESG Social ước lượng dựa trên mức độ hoạt động xã hội của doanh nghiệp. Bao gồm các trường: 'ESG Social Score', 'Hoạt động nổi bật', 'Nguồn trích dẫn nếu có'."
-                ),
-                "output": (
-                    "Đánh giá khía cạnh Social của VNG:\n"
-                    "{\n"
-                    "  'ESG Social Score': 88,\n"
-                    "  'Hoạt động nổi bật': 'VNG tài trợ học bổng cho học sinh vùng sâu, tổ chức hội thảo kỹ năng nghề nghiệp cho sinh viên',\n"
-                    "  'Nguồn': 'vnexpress.net, tinhte.vn'\n"
-                    "}"
-                )
-            },
-            {
-                "input": "Công ty MWG có đóng góp gì cho cộng đồng không?",
-                "idea": (
-                    "Step 1: Tìm kiếm bài viết, tin tức, hoặc phát biểu từ đại diện MWG liên quan đến từ thiện, trách nhiệm cộng đồng.\n"
-                    "Step 2: Tổng hợp thông tin từ các nguồn tin tức (cafef, laodong, vnexpress).\n"
-                    "Step 3: Trích dẫn những hoạt động tiêu biểu nếu có: hỗ trợ thiên tai, chương trình giáo dục, v.v.\n"
-                    "Step 4: Chấm điểm ESG xã hội ước lượng theo thang điểm 100."
-                ),
-                "output": (
-                    "MWG thường xuyên tổ chức các hoạt động thiện nguyện như tặng thiết bị học tập cho học sinh vùng cao. ESG Social Score: 92/100."
-                )
-            }
+            HumanMessage(content="Đánh giá khía cạnh Social của công ty VNG theo chuẩn quốc tế GRI"),
+            AIMessage(content=(
+                "Đánh giá khía cạnh Social của VNG:\n"
+                "{\n"
+                "  \"ESG Social Score\": 88,\n"
+                "  \"Hoạt động nổi bật\": \"VNG tài trợ học bổng cho học sinh vùng sâu, tổ chức hội thảo kỹ năng nghề nghiệp cho sinh viên\",\n"
+                "  \"Nguồn\": \"vnexpress.net, tinhte.vn\"\n"
+                "}"
+            )),
+
+            HumanMessage(content="Công ty MWG có đóng góp gì cho cộng đồng không?"),
+            AIMessage(content=(
+                "MWG thường xuyên tổ chức các hoạt động thiện nguyện như tặng thiết bị học tập cho học sinh vùng cao. ESG Social Score: 92/100."
+            )),
         ]
-        few_shot_messages = convert_examples_to_messages(self.examples)
-        self.system_role = f"""Bạn là một chuyên gia chơi chứng khoán trong lĩnh vực kinh tế đầu tư tại thị trường chứng khoán Việt Nam. Hôm nay là ngày {datetime.now().strftime('%Y-%m-%d')}. Sử dụng các tool được cung cấp như một ví dụ để đưa ra những lời khuyên hữu ích để người chơi mới tại Việt Nam lựa chọn và tối ưu hóa danh mục đầu tư, đầu tư chứng khoán thành công
+        
+        
+        # few_shot_messages = convert_examples_to_messages(self.examples)
+        self.system_role = f"""
+            Bạn là một chuyên gia phân tích và xây dựng báo cáo ESG chuẩn GRI. Hôm nay là ngày {datetime.now().strftime('%Y-%m-%d')}. Sử dụng các tool được cung cấp để tính toán các chỉ số một cách thành công và trả được chỉ số theo trụ cột S, Social.
         """
 
         few_shot_prompt = ChatPromptTemplate.from_messages(
             [
                 ("system", self.system_role),
-                *few_shot_messages,
+                *self.examples,
                 ("human", "{query}"),
             ]
         )
@@ -90,7 +78,7 @@ def query_social_logic(ques: str) -> str:
         llm_temperature=TOOLS_CFG.funcagent_llm_temperature,
         tools=tools
     )
-    ai_msg = agent.chain.invoke({"query": ques})
+    ai_msg = agent.chain.invoke(ques)
     messages.append(ai_msg)
     for tool_call in ai_msg.tool_calls:
         print(tool_call)

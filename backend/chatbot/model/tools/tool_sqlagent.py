@@ -4,7 +4,8 @@ import sys,os
 # os.environ['DJANGO_SETTINGS_MODULE'] = 'backend.settings'
 from langchain_community.utilities import SQLDatabase
 from langchain.chains import create_sql_query_chain
-from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+from langchain_community.tools import QuerySQLDatabaseTool
+
 from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
@@ -51,7 +52,7 @@ class SQLAgent:
             TOOLS_CFG.stock_db)
         print(self.db.get_usable_table_names())
 
-        execute_query = QuerySQLDataBaseTool(db=self.db)
+        execute_query = QuerySQLDatabaseTool(db=self.db)
         write_query = create_sql_query_chain(
             self.sql_agent_llm, self.db)
         answer_prompt = PromptTemplate.from_template(
