@@ -7,8 +7,9 @@ Sản phẩm này được dùng để tham gia cuộc thi Google Development Ha
 Sau đây là hướng dẫn chi tiết thực hiện và chạy dự án
 ### Clone repo into your space
 ```
-git clone https://github.com/dinhtanloc/GDSC2025-ECOSCORE_AI.git
-code GDSC2025-ECOSCORE_AI
+git clone https://github.com/dinhtanloc/GDSC2025-EXCORE_AI.git
+code GDSC2025-EXCORE_AI
+
 ```
 ### Frontend
 ```
@@ -29,7 +30,8 @@ pip install -r requirements.txt
 You can start the application immediately by following these instructions.
 Prepare the .env file for both the frontend and backend with the content as described below.
 ```
-GDSC2025-ECOSCORE_AI/.env
+GDSC2025-EXCORE_AI
+/.env
 #frontend
 VITE_AG_CHART= key_AG_accounts
 VITE_DOMAIN_BACKEND= http://127.0.0.1:8000
