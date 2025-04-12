@@ -2,7 +2,6 @@
 ## Introduction
 ![The project's web diagram and accompanying technologies.](images/project.png)
 
-
 Sản phẩm này được dùng để tham gia cuộc thi Google Development Hackathon năm 2025, của nhóm Chúng tôi là những kẻ ngốc. Đây là sản phẩm MVP nên sẽ có những phần chưa hoàn thiện như trong Proposal, mong ban tổ chức và ban giám khảo có thể bỏ qua
 ## install
 Sau đây là hướng dẫn chi tiết thực hiện và chạy dự án
@@ -20,7 +19,8 @@ npm i --legacy-per-deeps
 ### Backend
 ```
 cd backend
-pip install -r requirements.txt hoặc conda env update -f environment.yml --prune
+pip install -r requirements.txt 
+// hoặc conda env update -f environment.yml --prune
 # Ban tổ chức có thể thiết lập môi trường ảo nếu muốn
 
 ```
@@ -69,10 +69,18 @@ npm run dev
 cd backend
 
 // ./backend
+// Tạo tài khoản admin, để truy cập vào adminsite, chỉ có thể tạo được bằng cú pháp dưới đây
+python manage.py createsuperuser
+username: Nhập tên username
+pass: Nhập tên pass
+//Sử dụng username và pass để đăng nhập vào dự án
+
+//Khởi tạo database
 python manage.py migrate
 python manage.py makemigrations
 python manage.py migrate
-python manage.py runserver //start backend
+//start backend
+python manage.py runserver 
 
 // Your web backend domain is http://localhost:8000
 // If you want to create admin account to login Django backend admin template, you can use these syntax:
